@@ -36,7 +36,7 @@ import xzheng2.cmu.edu.hw3.View.FabricFragment;
 import xzheng2.cmu.edu.hw3.View.IDriftFragment;
 import xzheng2.cmu.edu.hw3.View.PVGPEventFragment;
 
-//cc test
+
 public class HomeActivity extends ActionBarActivity implements ActionBar.TabListener, IDriftFragment.OnFragmentInteractionListener, PVGPEventFragment.OnFragmentInteractionListener {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.

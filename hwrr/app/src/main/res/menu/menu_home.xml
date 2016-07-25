@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".HomeActivity">
+    <item android:id="@+id/login"
+        android:title="Login"
+
+        android:titleCondensed="Login"
+        android:alphabeticShortcut="e"
+        app:showAsAction="always" ></item>
+
+    <item android:id="@+id/logout"
+        android:title="Logout"
+
+        android:titleCondensed="Logout"
+        android:alphabeticShortcut="a"
+        app:showAsAction="ifRoom" ></item> <!-- for Action Bar -->
+
+
+    <!--<item android:id="@+id/listEventItem"-->
+        <!--android:icon="@android:drawable/ic_menu_view"-->
+        <!--android:title="Event Log"-->
+        <!--android:alphabeticShortcut="l"-->
+        <!--app:showAsAction="ifRoom" ></item>-->
+
+
+</menu>

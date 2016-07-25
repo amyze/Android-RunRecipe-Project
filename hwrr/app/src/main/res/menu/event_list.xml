@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="xzheng2.cmu.edu.hw3.ViewActivity.EventListActivity" >
+    <item android:id="@+id/editEventItem"
+        android:title="Edit Event"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:titleCondensed="Edit Event"
+        android:alphabeticShortcut="e"
+        app:showAsAction="always" ></item>
+
+    <item android:id="@+id/addEventItem"
+        android:title="Add Event"
+        android:icon="@android:drawable/ic_menu_add"
+        android:titleCondensed="Add Event"
+        android:alphabeticShortcut="a"
+        app:showAsAction="ifRoom" ></item> <!-- for Action Bar -->
+
+
+    <item android:id="@+id/listEventItem"
+        android:icon="@android:drawable/ic_menu_agenda"
+        android:title="Event Log"
+        android:alphabeticShortcut="l"
+        app:showAsAction="ifRoom" ></item>
+
+
+
+
+
+
+
+</menu>

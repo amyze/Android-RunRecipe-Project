@@ -154,7 +154,6 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
 
                 Toast.makeText(this, "login test", Toast.LENGTH_SHORT).show();
 
-
                 return true;
             case R.id.logout:
                 Toast.makeText(this, "logout test", Toast.LENGTH_SHORT).show();

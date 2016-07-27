@@ -25,7 +25,6 @@ public class RunCursor extends CursorWrapper {
         Run run = new Run();
         run.setId(getColumnIndex(COLUMN_RUN_ID));
         run.setStartDate(new Date(getLong(getColumnIndex(COLUMN_RUN_START_DATE))));
-//        run.setEndDate(new Date(getLong(getColumnIndex(COLUMN_RUN_END_DATE))));
         return run;
     }
 }

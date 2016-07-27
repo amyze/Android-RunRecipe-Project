@@ -195,17 +195,16 @@ public class RunFragment extends Fragment {
             duration = mRun.getDurationSeconds(mLastLocation.getTime());
             mStartButton.setEnabled(false); //??
             mStopButton.setEnabled(true);
-            mMapButton.setEnabled(true);
+//            mMapButton.setEnabled(true);
         } else {
 //            mStartButton.setEnabled(false);
-            mMapButton.setEnabled(false);
-
-//            x
+//            mMapButton.setEnabled(false);
         }
         mDurationTextView.setText(Run.formatDuration(duration));
 
         mStartButton.setEnabled(!started);
         mStopButton.setEnabled(started && trackingThisRun);
+        mMapButton.setEnabled(true);
     }
 
     @Override

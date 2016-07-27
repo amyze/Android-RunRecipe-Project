@@ -34,8 +34,7 @@ public class RunDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("create table run (_id integer primary key autoincrement, " + //use run
-                "start_date integer");
+        db.execSQL("create table run (_id integer primary key autoincrement, start_date integer)");
 
         db.execSQL("create table location (" +
                 " timestamp integer, " +

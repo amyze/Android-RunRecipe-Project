@@ -8,6 +8,7 @@ package xzheng2.cmu.edu.hw3;
 //import io.fabric.sdk.android.Fabric;
 import android.net.Uri;
 import android.os.Bundle;
+//import android.support.v4.app.Fragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -35,6 +36,7 @@ import xzheng2.cmu.edu.hw3.View.EventLogFragment;
 import xzheng2.cmu.edu.hw3.View.FabricFragment;
 import xzheng2.cmu.edu.hw3.View.IDriftFragment;
 import xzheng2.cmu.edu.hw3.View.PVGPEventFragment;
+import xzheng2.cmu.edu.hw3.View.RunFragment;
 
 //cc test
 public class HomeActivity extends ActionBarActivity implements ActionBar.TabListener, IDriftFragment.OnFragmentInteractionListener, PVGPEventFragment.OnFragmentInteractionListener {
@@ -212,7 +214,8 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
                     return new CanlanderFragment();
                 case 1:
 //                    return new FabricFragment();
-                    return new EventLogFragment();
+//                    return new EventLogFragment();
+                    return new RunFragment();
                 case 2:
                     return new FabricFragment();
 //                case 3:

@@ -1,9 +1,10 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-import android.app.Activity;
-import android.content.AsyncTaskLoader;
+//import android.app.Activity;
+//import android.content.AsyncTaskLoader;
 import android.content.Context;
-import android.content.Loader;
+import android.support.v4.content.AsyncTaskLoader;
+//import android.content.Loader;
 
 import xzheng2.cmu.edu.hw3.Run.RunManager;
 

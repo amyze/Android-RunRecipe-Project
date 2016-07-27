@@ -102,7 +102,7 @@ public class RunDatabaseHelper extends SQLiteOpenHelper {
         return new LocationCursor(cursor);
     }
 
-    public LocationCursor queryLocationsForReport(long reportId) {
+    public LocationCursor queryLocationsForRun(long reportId) {
         Cursor wrapped = getReadableDatabase().query(TABLE_LOCATION,
                 null,
                 COLUMN_LOCATION_RUN_ID + " = ?", // limit to the given report

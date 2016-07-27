@@ -1,9 +1,72 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="fill_parent"
     android:layout_height="match_parent" tools:context="xzheng2.cmu.edu.hw3.View.RunFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView android:layout_width="match_parent" android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingRight="5sp"
+            android:text="@string/started"
+            />
+        <TextView android:id="@+id/run_startedTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingRight="5sp"
+            android:text="@string/distance"
+            />
+        <TextView android:id="@+id/run_distanceTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            />
+    </TableRow>
+    <TableRow>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingRight="5sp"
+            android:text="@string/elapsed_time"
+            />
+        <TextView android:id="@+id/run_durationTextView"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="25sp"
+            />
+    </TableRow>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        >
+        <Button android:id="@+id/run_startButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/start"
+            />
+        <Button android:id="@+id/run_stopButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/stop"
+            />
+        <Button android:id="@+id/run_mapButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/map"
+            />
+    </LinearLayout>
 
-</FrameLayout>
+
+</TableLayout>

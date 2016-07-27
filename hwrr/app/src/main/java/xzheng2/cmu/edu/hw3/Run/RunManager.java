@@ -4,12 +4,12 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.database.Cursor;
 import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
 
-import java.util.ConcurrentModificationException;
-
+import xzheng2.cmu.edu.hw3.Model.LocationCursor;
 import xzheng2.cmu.edu.hw3.Model.Run;
 import xzheng2.cmu.edu.hw3.Model.RunCursor;
 import xzheng2.cmu.edu.hw3.Model.RunDatabaseHelper;
@@ -96,7 +96,7 @@ public class RunManager {
         mAppContext.sendBroadcast(intent);
     }
 
-    private Run startNewRun() {
+    public Run startNewRun() {
         Run run = insertRun();
         startTrackingRun(run);
         return run;
@@ -135,4 +135,17 @@ public class RunManager {
         return run;
     }
 
+    public Location getLastLocationForRun(long runId) {
+        Location location = null;
+        LocationCursor cursor = mHelper.queryLastLocationForRun(runId);
+        cursor.moveToFirst();
+        if (!cursor.isAfterLast())
+            location = cursor.getLocation();
+        cursor.close();
+        return location;
+    }
+
+    public Cursor queryLocationsForRun(long mRunId) {
+        return mHelper.queryLocationsForRun(mRunId);
+    }
 }

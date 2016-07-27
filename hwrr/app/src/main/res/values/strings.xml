@@ -4,4 +4,14 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="started">Start:</string>
+    <string name="elapsed_time">Duration:</string>
+    <string name="distance">Distance:</string>
+    <string name="start">Start</string>
+    <string name="stop">Stop</string>
+    <string name="map">Map</string>
+    <string name="run_start">Start running</string>
+    <string name="report_started_at_format">Report started at %s</string>
+    <string name="report_finish">Finish  run</string>
+    <string name="report_finished_at_format">Run finish at %s</string>
 </resources>

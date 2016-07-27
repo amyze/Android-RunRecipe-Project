@@ -40,7 +40,7 @@
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAfwtDB4t5uTAEx3Pyb-Nhf6cKqEtJosEk" />
+            android:value="AIzaSyDGEBQ3Ss5FuXGfAiFmvo8ffElJPSeqK0M" />
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
@@ -54,6 +54,7 @@
             android:value="1db717cb7f12458810a442baad7ccded766bd906" />
 
         <activity android:name=".ViewActivity.ViewEventActivity"></activity>
+        <activity android:name=".ViewActivity.RunMapActivity"></activity>
     </application>
 
 </manifest>

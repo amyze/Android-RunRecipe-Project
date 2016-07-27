@@ -7,11 +7,13 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.location.Location;
 
+import hugo.weaving.DebugLog;
+
 /**
  * Created by chengcheng on 7/26/16.
  */
 public class RunDatabaseHelper extends SQLiteOpenHelper {
-    private static final String DB_NAME = "runs.sqlite";
+    private static final String DB_NAME = "runs.db";
     private static final int VERSION = 1;
 
     private static final String TABLE_RUN = "run";
@@ -32,8 +34,11 @@ public class RunDatabaseHelper extends SQLiteOpenHelper {
         super(context, DB_NAME, null, VERSION);
     }
 
+    @DebugLog
     @Override
     public void onCreate(SQLiteDatabase db) {
+
+        System.out.println("DB ON Create");
         db.execSQL("create table run (_id integer primary key autoincrement, start_date integer)");
 
         db.execSQL("create table location (" +
@@ -42,18 +47,23 @@ public class RunDatabaseHelper extends SQLiteOpenHelper {
                 "longitude real, " +
                 "altitude real, " +
                 "provider varchar(100), " +
-                "run_id integer references report(_id))");
+                "run_id integer references run(_id))");
     }
+
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
     }
 
+    @DebugLog
     public long insertRun(Run run) {
+
+        System.out.println("insertRun ON Create");
+
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_RUN_START_DATE, run.getStartDate().getTime());
-        return getWritableDatabase().insert(TABLE_RUN, null, cv);
+        return getWritableDatabase().insert(TABLE_RUN, null, cv); //
     }
 
 
@@ -83,7 +93,7 @@ public class RunDatabaseHelper extends SQLiteOpenHelper {
                 null,
                 null,
                 "1"
-                );
+        );
         return new RunCursor(cursor);
     }
 
@@ -92,7 +102,7 @@ public class RunDatabaseHelper extends SQLiteOpenHelper {
                 TABLE_LOCATION,
                 null,
                 COLUMN_LOCATION_RUN_ID + " = ?",
-                new String[] {String.valueOf(runId)},
+                new String[]{String.valueOf(runId)},
                 null,
                 null,
                 COLUMN_LOCATION_TIMESTAMP + " desc",
@@ -105,7 +115,7 @@ public class RunDatabaseHelper extends SQLiteOpenHelper {
         Cursor wrapped = getReadableDatabase().query(TABLE_LOCATION,
                 null,
                 COLUMN_LOCATION_RUN_ID + " = ?", // limit to the given report
-                new String[]{ String.valueOf(reportId) },
+                new String[]{String.valueOf(reportId)},
                 null, // group by
                 null, // having
                 COLUMN_LOCATION_TIMESTAMP + " asc"); // order by timestamp

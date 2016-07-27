@@ -9,6 +9,7 @@ import android.location.Location;
 import android.location.LocationManager;
 import android.util.Log;
 
+import hugo.weaving.DebugLog;
 import xzheng2.cmu.edu.hw3.Model.LocationCursor;
 import xzheng2.cmu.edu.hw3.Model.Run;
 import xzheng2.cmu.edu.hw3.Model.RunCursor;
@@ -35,10 +36,11 @@ public class RunManager {
     private SharedPreferences mPrefs;
     private long mCurrentRunId;
 
+    @DebugLog
     private RunManager(Context appContext) {
         mAppContext = appContext;
-        mLocationManager = (LocationManager)mAppContext.getSystemService(Context.LOCATION_SERVICE);
         mHelper = new RunDatabaseHelper(mAppContext);
+        mLocationManager = (LocationManager)mAppContext.getSystemService(Context.LOCATION_SERVICE);
         mPrefs = mAppContext.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
         mCurrentRunId = mPrefs.getLong(PREF_CURRENT_RUN_ID, -1);
     }

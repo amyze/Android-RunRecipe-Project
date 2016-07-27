@@ -8,6 +8,7 @@ import android.support.v4.content.Loader;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Display;
+
 import com.google.android.gms.maps.GoogleMap;
 
 
@@ -34,6 +35,7 @@ public class RunMapActivity extends AppCompatActivity implements LoaderManager.L
     private GoogleMap googleMap;
     private LocationCursor mLocationCursor;
     private String ARG_RUN_ID;
+    private boolean needToUPdateUI;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,12 +51,11 @@ public class RunMapActivity extends AppCompatActivity implements LoaderManager.L
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        googleMap.setMyLocationEnabled(true);
-        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 
     }
 
     private void updateUI() {
+
         if (googleMap == null || mLocationCursor == null)
             return;
 
@@ -100,6 +101,8 @@ public class RunMapActivity extends AppCompatActivity implements LoaderManager.L
         CameraUpdate movement = CameraUpdateFactory.newLatLngBounds(latLngBuilder.build(),
                 display.getWidth(), display.getHeight(), 15);
         googleMap.moveCamera(movement);
+
+        needToUPdateUI = false;
     }
 
     @Override
@@ -109,8 +112,13 @@ public class RunMapActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        mLocationCursor = (LocationCursor)cursor;
-        updateUI();
+        mLocationCursor = (LocationCursor) cursor;
+
+        if (googleMap != null) {
+            updateUI();
+        } else {
+            needToUPdateUI = true;
+        }
     }
 
     @Override
@@ -121,10 +129,15 @@ public class RunMapActivity extends AppCompatActivity implements LoaderManager.L
     }
 
     @Override
-    public void onMapReady(GoogleMap googleMap) {
-        this.googleMap = googleMap;
+    public void onMapReady(GoogleMap map) {
 
+        this.googleMap = map;
+        googleMap.setMyLocationEnabled(true);
+        googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
 //        googleMap.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+        if (needToUPdateUI) {
+            updateUI();
+        }
 
     }
 }

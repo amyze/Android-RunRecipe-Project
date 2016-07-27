@@ -125,6 +125,10 @@ public class RunFragment extends Fragment {
                 Intent intent = new Intent(getActivity(), RunMapActivity.class);
                 intent.putExtra(RunMapActivity.EXTRA_RUN_ID, mRun.getId());
                 startActivity(intent);
+
+                mStopButton.setEnabled(false);
+                mStartButton.setEnabled(true);
+
                 updateUI();
 //                mStopButton.setEnabled(false);
             }
@@ -135,7 +139,12 @@ public class RunFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), RunMapActivity.class);
-                intent.putExtra(RunMapActivity.EXTRA_RUN_ID, mRun.getId());
+                if (mRun == null) {
+                    intent.putExtra(RunMapActivity.EXTRA_RUN_ID, -1);
+
+                } else {
+                    intent.putExtra(RunMapActivity.EXTRA_RUN_ID, mRun.getId());
+                }
                 startActivity(intent);
             }
         });
@@ -193,7 +202,6 @@ public class RunFragment extends Fragment {
         int duration = 0;
         if (mRun != null && mLastLocation != null) {
             duration = mRun.getDurationSeconds(mLastLocation.getTime());
-            mStartButton.setEnabled(false); //??
             mStopButton.setEnabled(true);
 //            mMapButton.setEnabled(true);
         } else {

@@ -31,6 +31,7 @@ import java.lang.reflect.Field;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
+import xzheng2.cmu.edu.hw3.Model.RunDatabaseHelper;
 import xzheng2.cmu.edu.hw3.View.CanlanderFragment;
 import xzheng2.cmu.edu.hw3.View.EventLogFragment;
 import xzheng2.cmu.edu.hw3.View.FabricFragment;
@@ -44,6 +45,8 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "OKoOmxo9Y4pGL4SDU1CTG3Eem";
     private static final String TWITTER_SECRET = "4ZZqw6eFe0HNQ6QgJ3rSJV61aGhGoYHYhMc6z6GTodoyednB6G";
+
+    private RunDatabaseHelper runDatabaseHelper;
 
 
 
@@ -72,6 +75,7 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
         setContentView(R.layout.activity_home);
+        runDatabaseHelper = new RunDatabaseHelper(getApplicationContext());
 
 
 

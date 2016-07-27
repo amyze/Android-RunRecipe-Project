@@ -100,18 +100,20 @@ public class RunManager {
 
     public Run startNewRun() {
         Run run = insertRun();
+        Log.d(TAG, "" + run.getId());
         startTrackingRun(run);
         return run;
     }
 
     public void startTrackingRun(Run run) {
         mCurrentRunId = run.getId();
+        Log.d("Manager:startTrack", "id: " + run.getId());
         mPrefs.edit().putLong(PREF_CURRENT_RUN_ID, mCurrentRunId);
         startLocationUpdates();
     }
 
     public void stopRun() {
-        startLocationUpdates();
+        stopLocationUpdates();
         mCurrentRunId = -1;
         mPrefs.edit().remove(PREF_CURRENT_RUN_ID).commit();
     }
@@ -149,5 +151,13 @@ public class RunManager {
 
     public Cursor queryLocationsForRun(long mRunId) {
         return mHelper.queryLocationsForRun(mRunId);
+    }
+
+    public void insertLocation(Location loc) {
+        if (mCurrentRunId != -1) {
+            mHelper.insertLocation(mCurrentRunId, loc);
+        } else {
+            Log.e(TAG, "Location received with no tracking report; ignoring.");
+        }
     }
 }

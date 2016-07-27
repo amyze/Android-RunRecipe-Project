@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="xzheng2.cmu.edu.hw3">
+    package="xzheng2.cmu.edu.hw3" >
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
@@ -17,12 +17,10 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme">
+        android:theme="@style/AppTheme" >
         <activity
             android:name=".HomeActivity"
-
-            android:logo="@drawable/ic_launcher">
-
+            android:logo="@drawable/ic_launcher" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,7 +30,7 @@
         <activity
             android:name=".ViewActivity.EventListActivity"
             android:label="EventListActivity"
-            android:parentActivityName=".HomeActivity">
+            android:parentActivityName=".HomeActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="xzheng2.cmu.edu.hw3.HomeActivity" />
@@ -53,8 +51,10 @@
             android:name="io.fabric.ApiKey"
             android:value="1db717cb7f12458810a442baad7ccded766bd906" />
 
-        <activity android:name=".ViewActivity.ViewEventActivity"></activity>
-        <activity android:name=".ViewActivity.RunMapActivity"></activity>
+        <activity android:name=".ViewActivity.ViewEventActivity" />
+        <activity android:name=".ViewActivity.RunMapActivity" />
+        <activity android:name=".View.RunPathActivity" >
+        </activity>
     </application>
 
 </manifest>

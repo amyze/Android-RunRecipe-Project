@@ -10,6 +10,7 @@ public class RunPathActivity extends AppCompatActivity {
     public static final String EXTRA_RUN_ID = "RUN_ID";
 
     protected Fragment createFragment() {
+
         long runId = getIntent().getLongExtra(EXTRA_RUN_ID, -1);
         if(runId != -1) {
             return RunMapFragment.newInstance(runId);

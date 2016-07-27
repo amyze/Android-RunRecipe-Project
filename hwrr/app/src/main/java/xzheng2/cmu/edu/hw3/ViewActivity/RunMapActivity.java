@@ -30,7 +30,6 @@ import xzheng2.cmu.edu.hw3.R;
 public class RunMapActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>, OnMapReadyCallback {
     public static String EXTRA_RUN_ID = "RUN_ID";
     private static final int LOAD_LOCATIONS = 0;
-//    public static String EXTRA_RUN_ID;
 
     private GoogleMap googleMap;
     private LocationCursor mLocationCursor;
@@ -50,7 +49,6 @@ public class RunMapActivity extends AppCompatActivity implements LoaderManager.L
         SupportMapFragment mapFragment =
                 (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
 
     }
 

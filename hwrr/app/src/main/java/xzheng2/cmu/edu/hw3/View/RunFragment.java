@@ -10,12 +10,15 @@ import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.LoaderManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import java.security.interfaces.DSAPublicKey;
 
 import xzheng2.cmu.edu.hw3.Model.LastLocationLoader;
 import xzheng2.cmu.edu.hw3.Model.Run;
@@ -39,6 +42,7 @@ public class RunFragment extends Fragment {
 
     private Button mStartButton, mStopButton;
     private TextView mStartedTextView, mDurationTextView;
+    private TextView mLatitudeTextView, mLongitudeTextView, mAltitudeTextView;
     private Button mMapButton;
 
 
@@ -99,6 +103,9 @@ public class RunFragment extends Fragment {
         mStartButton = (Button) view.findViewById(R.id.run_startButton);
         mStopButton = (Button) view.findViewById(R.id.run_stopButton);
         mMapButton = (Button) view.findViewById(R.id.run_mapButton);
+        mLatitudeTextView = (TextView) view.findViewById(R.id.run_latitudeTextView);
+        mLongitudeTextView = (TextView) view.findViewById(R.id.run_longitudeTextView);
+        mAltitudeTextView = (TextView) view.findViewById(R.id.run_altitudeTextView);
 
         //start
         mStartButton.setOnClickListener(new View.OnClickListener() {
@@ -106,11 +113,11 @@ public class RunFragment extends Fragment {
             public void onClick(View view) {
                 if (mRun == null) {
                     mRun = mRunManager.startNewRun();
-                    mStopButton.setEnabled(false);
+//                    mStopButton.setEnabled(false);
                 } else {
                     mRunManager.startTrackingRun(mRun);
-                    mStartButton.setEnabled(false); // cannot type now
-                    mStopButton.setEnabled(true);
+//                    mStartButton.setEnabled(false); // cannot type now
+//                    mStopButton.setEnabled(true);
                 }
                 updateUI();
             }
@@ -122,15 +129,15 @@ public class RunFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 mRunManager.stopRun();
-                Intent intent = new Intent(getActivity(), RunMapActivity.class);
-                intent.putExtra(RunMapActivity.EXTRA_RUN_ID, mRun.getId());
-                startActivity(intent);
-
-                mStopButton.setEnabled(false);
-                mStartButton.setEnabled(true);
+//                mStopButton.setEnabled(false);
+//                mStartButton.setEnabled(true);
+//
+//                Intent intent = new Intent(getActivity(), RunMapActivity.class);
+//                intent.putExtra(RunMapActivity.EXTRA_RUN_ID, mRun.getId());
+//                Log.d("****getId()" , ""  + mRun.getId());
+//                startActivity(intent);
 
                 updateUI();
-//                mStopButton.setEnabled(false);
             }
         });
 
@@ -164,7 +171,7 @@ public class RunFragment extends Fragment {
         @Override
         public void onLoadFinished(android.support.v4.content.Loader<Run> loader, Run run) {
             mRun = run;
-//            updateUI();
+            updateUI();
         }
 
         @Override
@@ -202,17 +209,17 @@ public class RunFragment extends Fragment {
         int duration = 0;
         if (mRun != null && mLastLocation != null) {
             duration = mRun.getDurationSeconds(mLastLocation.getTime());
+            mLatitudeTextView.setText(Double.toString(mLastLocation.getLatitude()));
+            mLongitudeTextView.setText(Double.toString(mLastLocation.getLongitude()));
+            mAltitudeTextView.setText(Double.toString(mLastLocation.getAltitude()));
             mStopButton.setEnabled(true);
-//            mMapButton.setEnabled(true);
         } else {
-//            mStartButton.setEnabled(false);
-//            mMapButton.setEnabled(false);
+            mMapButton.setEnabled(false);
         }
         mDurationTextView.setText(Run.formatDuration(duration));
 
         mStartButton.setEnabled(!started);
         mStopButton.setEnabled(started && trackingThisRun);
-        mMapButton.setEnabled(true);
     }
 
     @Override

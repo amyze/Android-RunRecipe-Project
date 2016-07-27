@@ -35,6 +35,7 @@ import xzheng2.cmu.edu.hw3.View.EventLogFragment;
 import xzheng2.cmu.edu.hw3.View.FabricFragment;
 import xzheng2.cmu.edu.hw3.View.IDriftFragment;
 import xzheng2.cmu.edu.hw3.View.PVGPEventFragment;
+import xzheng2.cmu.edu.hw3.View.FitbitFragment;
 
 
 public class HomeActivity extends ActionBarActivity implements ActionBar.TabListener, IDriftFragment.OnFragmentInteractionListener, PVGPEventFragment.OnFragmentInteractionListener {
@@ -214,8 +215,8 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
                     return new EventLogFragment();
                 case 2:
                     return new FabricFragment();
-//                case 3:
-//                    return new FabricFragment();
+                case 3:
+                    return new FitbitFragment();
 
                 default:
                     break;
@@ -228,7 +229,7 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return 4;
         }
 
 
@@ -246,8 +247,8 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
                     return "Run".toUpperCase(l);
                 case 2:
                     return "Recipe".toUpperCase(l);
-//                case 3:
-//                    return "LogOut";
+                case 3:
+                    return "Fitbit";
             }
             return null;
         }

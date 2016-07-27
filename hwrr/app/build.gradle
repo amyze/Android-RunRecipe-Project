@@ -52,9 +52,9 @@ dependencies {
     compile('com.google.apis:google-api-services-calendar:v3-rev198-1.22.0') {
         exclude group: 'org.apache.httpcomponents'
     }
-        compile('com.twitter.sdk.android:twitter:1.14.0@aar') {
-            transitive = true;
-        }
+    compile('com.twitter.sdk.android:twitter:1.14.0@aar') {
+        transitive = true;
+    }
 
 
     compile 'com.google.android.gms:play-services:9.2.0'

@@ -87,6 +87,11 @@ public class ReportMapFragment extends SupportMapFragment implements LoaderCallb
         LatLngBounds.Builder latLngBuilder = new LatLngBounds.Builder();
         // iterate over the locations
         mLocationCursor.moveToFirst();
+
+        Log.d("***Lng", "" + mLocationCursor.getLocation().getLongitude());
+        Log.d("***Lat","" + mLocationCursor.getLocation().getLatitude());
+
+
         while (!mLocationCursor.isAfterLast()) {
             Location loc = mLocationCursor.getLocation();
             LatLng latLng = new LatLng(loc.getLatitude(), loc.getLongitude());

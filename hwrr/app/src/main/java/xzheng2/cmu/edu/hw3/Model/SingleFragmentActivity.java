@@ -1,27 +1,20 @@
-package xzheng2.cmu.edu.hw3.View;
+package xzheng2.cmu.edu.hw3.Model;
 
-
+/**
+ * Created by chengcheng on 7/28/16.
+ */
 import android.os.Bundle;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.FrameLayout;
 
 import xzheng2.cmu.edu.hw3.R;
 
-/**
- * A simple {@link Fragment} subclass.
- */
-public abstract class SingleFragment extends FragmentActivity {
-
-
+public abstract class SingleFragmentActivity extends FragmentActivity {
     protected static final String FRAGMENT_TAG = "SingleFragmentActivity.Fragment";
 
-    protected abstract android.support.v4.app.Fragment createFragment();
-
+    protected abstract Fragment createFragment();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -31,7 +24,7 @@ public abstract class SingleFragment extends FragmentActivity {
         setContentView(fl);
 
         FragmentManager manager = getSupportFragmentManager();
-        android.support.v4.app.Fragment fragment = manager.findFragmentById(R.id.fragmentContainer);
+        Fragment fragment = manager.findFragmentById(R.id.fragmentContainer);
 
         if (fragment == null) {
             fragment = createFragment();

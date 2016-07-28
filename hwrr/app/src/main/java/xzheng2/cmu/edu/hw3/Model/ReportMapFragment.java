@@ -1,4 +1,9 @@
-package xzheng2.cmu.edu.hw3.View;
+package xzheng2.cmu.edu.hw3.Model;
+
+/**
+ * Created by chengcheng on 7/28/16.
+ */
+import java.util.Date;
 
 import android.database.Cursor;
 import android.location.Location;
@@ -6,11 +11,14 @@ import android.os.Bundle;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.app.LoaderManager.LoaderCallbacks;
 import android.support.v4.content.Loader;
+import android.util.Log;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper.LocationCursor;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -21,23 +29,22 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-import java.util.Date;
-
-import xzheng2.cmu.edu.hw3.Model.LocationCursor;
-import xzheng2.cmu.edu.hw3.Model.LocationListCursorLoader;
 import xzheng2.cmu.edu.hw3.R;
 
-public class RunMapFragment extends SupportMapFragment implements LoaderCallbacks<Cursor>, OnMapReadyCallback {
-    private static final String ARG_RUN_ID = "RUN_ID";
+
+
+public class ReportMapFragment extends SupportMapFragment implements LoaderCallbacks<Cursor>, OnMapReadyCallback {
+    private static final String ARG_REPORT_ID = "REPORT_ID";
+    private static final String TAG = "ReportMapFragment";
     private static final int LOAD_LOCATIONS = 0;
 
     private GoogleMap mGoogleMap;
     private LocationCursor mLocationCursor;
 
-    public static RunMapFragment newInstance(long reportId) {
+    public static ReportMapFragment newInstance(long reportId) {
         Bundle args = new Bundle();
-        args.putLong(ARG_RUN_ID, reportId);
-        RunMapFragment rf = new RunMapFragment();
+        args.putLong(ARG_REPORT_ID, reportId);
+        ReportMapFragment rf = new ReportMapFragment();
         rf.setArguments(args);
         return rf;
     }
@@ -49,7 +56,7 @@ public class RunMapFragment extends SupportMapFragment implements LoaderCallback
         // check for a Report ID as an argument, and find the report
         Bundle args = getArguments();
         if (args != null) {
-            long reportId = args.getLong(ARG_RUN_ID, -1);
+            long reportId = args.getLong(ARG_REPORT_ID, -1);
             if (reportId != -1) {
                 LoaderManager lm = getLoaderManager();
                 lm.initLoader(LOAD_LOCATIONS, args, this);
@@ -62,10 +69,10 @@ public class RunMapFragment extends SupportMapFragment implements LoaderCallback
         View v = super.onCreateView(inflater, parent, savedInstanceState);
 
         // stash a reference to the GoogleMap
-//        mGoogleMap = getMap();
-
-
         getMapAsync(this);
+        // show the user's location
+
+
         return v;
     }
 
@@ -119,12 +126,16 @@ public class RunMapFragment extends SupportMapFragment implements LoaderCallback
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new LocationListCursorLoader(getActivity(), args.getLong(ARG_RUN_ID, -1));
+        Log.d(TAG, "**createLoader");
+        Log.d(TAG, "id" + args.getLong(ARG_REPORT_ID));
+
+        return new LocationListCursorLoader(getActivity(), args.getLong(ARG_REPORT_ID, -1));
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        mLocationCursor = (LocationCursor) cursor;
+        Log.d(TAG, "**finishLoader");
+        mLocationCursor = (LocationCursor)cursor;
         updateUI();
     }
 
@@ -132,18 +143,14 @@ public class RunMapFragment extends SupportMapFragment implements LoaderCallback
     public void onLoaderReset(Loader<Cursor> loader) {
         // stop using the data
         mLocationCursor.close();
-//        mLocationCursor = null;
+        mLocationCursor = null;
     }
+
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-
         mGoogleMap = googleMap;
-
-        // show the user's location
         mGoogleMap.setMyLocationEnabled(true);
-
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
-
     }
 }

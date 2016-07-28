@@ -1,17 +1,19 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-import android.support.v4.content.AsyncTaskLoader;
+/**
+ * Created by chengcheng on 7/28/16.
+ */
 import android.content.Context;
 import android.database.Cursor;
+import android.support.v4.content.AsyncTaskLoader;
 
-/**
- * Created by chengcheng on 7/26/16.
- */
-public abstract  class SQLiteCursor extends AsyncTaskLoader<Cursor> {
+public abstract class SQLiteCursorLoader extends AsyncTaskLoader<Cursor> {
     private Cursor mCursor;
-    public SQLiteCursor(Context context) {
+
+    public SQLiteCursorLoader(Context context) {
         super(context);
     }
+
     protected abstract Cursor loadCursor();
 
     @Override
@@ -26,15 +28,15 @@ public abstract  class SQLiteCursor extends AsyncTaskLoader<Cursor> {
 
     @Override
     public void deliverResult(Cursor data) {
-        Cursor preCursor = mCursor;
+        Cursor oldCursor = mCursor;
         mCursor = data;
 
         if (isStarted()) {
             super.deliverResult(data);
         }
 
-        if (preCursor != null && preCursor != data && !preCursor.isClosed()) {
-            preCursor.close();
+        if (oldCursor != null && oldCursor != data && !oldCursor.isClosed()) {
+            oldCursor.close();
         }
     }
 
@@ -73,4 +75,5 @@ public abstract  class SQLiteCursor extends AsyncTaskLoader<Cursor> {
         }
         mCursor = null;
     }
+
 }

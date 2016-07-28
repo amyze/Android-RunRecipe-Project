@@ -1,24 +1,21 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-import android.app.Activity;
+/**
+ * Created by chengcheng on 7/28/16.
+ */
 import android.content.Context;
 import android.database.Cursor;
 
-import xzheng2.cmu.edu.hw3.Run.RunManager;
+public class LocationListCursorLoader extends SQLiteCursorLoader {
+    private long mReportId;
 
-/**
- * Created by chengcheng on 7/26/16.
- */
-public class LocationListCursorLoader extends SQLiteCursor {
-    private long mRunId;
-
-    public LocationListCursorLoader(Activity activity, long id) {
-        super(activity);
-        mRunId = id;
+    public LocationListCursorLoader(Context c, long reportId) {
+        super(c);
+        mReportId = reportId;
     }
 
     @Override
     protected Cursor loadCursor() {
-        return RunManager.get(getContext()).queryLocationsForRun(mRunId);
+        return ReportManager.get(getContext()).queryLocationsForReport(mReportId);
     }
 }

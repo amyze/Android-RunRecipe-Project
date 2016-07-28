@@ -6,6 +6,7 @@ package xzheng2.cmu.edu.hw3;
 //import com.twitter.sdk.android.Twitter;
 //import com.twitter.sdk.android.core.TwitterAuthConfig;
 //import io.fabric.sdk.android.Fabric;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -33,9 +34,10 @@ import io.fabric.sdk.android.Fabric;
 import xzheng2.cmu.edu.hw3.View.CanlanderFragment;
 import xzheng2.cmu.edu.hw3.View.EventLogFragment;
 import xzheng2.cmu.edu.hw3.View.FabricFragment;
+import xzheng2.cmu.edu.hw3.View.FitbitFragment;
 import xzheng2.cmu.edu.hw3.View.IDriftFragment;
 import xzheng2.cmu.edu.hw3.View.PVGPEventFragment;
-import xzheng2.cmu.edu.hw3.View.FitbitFragment;
+import xzheng2.cmu.edu.hw3.ViewActivity.FitbitLogin;
 
 
 public class HomeActivity extends ActionBarActivity implements ActionBar.TabListener, IDriftFragment.OnFragmentInteractionListener, PVGPEventFragment.OnFragmentInteractionListener {
@@ -154,6 +156,9 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
             case R.id.login:
 
                 Toast.makeText(this, "login test", Toast.LENGTH_SHORT).show();
+                Intent itemList = new Intent(HomeActivity.this, FitbitLogin.class);
+                startActivity(itemList);
+
 
                 return true;
             case R.id.logout:

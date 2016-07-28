@@ -20,9 +20,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".HomeActivity"
-
             android:logo="@drawable/ic_launcher">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,7 +51,8 @@
             android:name="io.fabric.ApiKey"
             android:value="1db717cb7f12458810a442baad7ccded766bd906" />
 
-        <activity android:name=".ViewActivity.ViewEventActivity"></activity>
+        <activity android:name=".ViewActivity.ViewEventActivity" />
+        <activity android:name=".ViewActivity.FitbitLogin"></activity>
     </application>
 
 </manifest>

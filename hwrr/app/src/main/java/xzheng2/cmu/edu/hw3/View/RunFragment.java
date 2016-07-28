@@ -5,7 +5,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.Loader;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -18,15 +17,13 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.security.interfaces.DSAPublicKey;
-
 import xzheng2.cmu.edu.hw3.Model.LastLocationLoader;
 import xzheng2.cmu.edu.hw3.Model.Run;
 import xzheng2.cmu.edu.hw3.Model.RunLoader;
 import xzheng2.cmu.edu.hw3.R;
 import xzheng2.cmu.edu.hw3.Run.LocationReceiver;
 import xzheng2.cmu.edu.hw3.Run.RunManager;
-import xzheng2.cmu.edu.hw3.ViewActivity.RunMapActivity;
+import xzheng2.cmu.edu.hw3.ViewActivity.MyRunMapActivity;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -131,17 +128,18 @@ public class RunFragment extends Fragment {
 
                 updateUI();
                 Log.d("RunFragStopRun", "" + mRun.getId());
-
-                mRun = null;
 //new intent
                 Intent intent = new Intent(getActivity(), RunPathActivity.class); // new RunPathActivity
-                if (mRun == null) {
-                    intent.putExtra(RunMapActivity.EXTRA_RUN_ID, -1);
-
-                } else {
-                    intent.putExtra(RunMapActivity.EXTRA_RUN_ID, mRun.getId());
-                }
+//                if (mRun == null) {
+//                    intent.putExtra(RunPathActivity.EXTRA_RUN_ID, -1);
+//
+//                } else {
+                    intent.putExtra(RunPathActivity.EXTRA_RUN_ID, mRun.getId());
+//                }
                 startActivity(intent);
+
+                mRun = null; //should after this
+
 
 
             }
@@ -153,7 +151,13 @@ public class RunFragment extends Fragment {
             public void onClick(View view) {
 
                 Intent i = new Intent(getActivity(), RunPathActivity.class);
-                i.putExtra(RunPathActivity.EXTRA_RUN_ID, mRun.getId());
+                if (mRun == null) {
+                    i.putExtra(RunPathActivity.EXTRA_RUN_ID, -1);
+                    Log.d("NotStart", "just show map and locaiton");
+                } else {
+                    i.putExtra(RunPathActivity.EXTRA_RUN_ID, mRun.getId());
+                    Log.d("Started", "Show map & path");
+                }
                 startActivity(i);
             }
         });

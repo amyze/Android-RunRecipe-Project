@@ -155,9 +155,11 @@ public class RunManager {
 
     public void insertLocation(Location loc) {
         if (mCurrentRunId != -1) {
+            Log.d("RunManager", "***" + mCurrentRunId);
             mHelper.insertLocation(mCurrentRunId, loc);
         } else {
             Log.e(TAG, "Location received with no tracking report; ignoring.");
         }
     }
+
 }

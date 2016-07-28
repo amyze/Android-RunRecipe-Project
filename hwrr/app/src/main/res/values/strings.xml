@@ -11,10 +11,11 @@
     <string name="stop">Stop</string>
     <string name="map">Map</string>
     <string name="run_start">Start running</string>
-    <string name="report_started_at_format">Report started at %s</string>
-    <string name="report_finish">Finish  run</string>
-    <string name="report_finished_at_format">Run finish at %s</string>
+    <string name="run_started_at_format">Run started at %s</string>
+    <string name="run_finish">Finish run</string>
+    <string name="run_finished_at_format">Run finish at %s</string>
     <string name="longitude">Longitude</string>
     <string name="altitude">Altitude</string>
     <string name="latitude">Latitude</string>
+    <string name="sendTwitter">Twitter</string>
 </resources>

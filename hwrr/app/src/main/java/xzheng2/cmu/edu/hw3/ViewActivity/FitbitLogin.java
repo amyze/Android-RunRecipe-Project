@@ -1,6 +1,7 @@
 package xzheng2.cmu.edu.hw3.ViewActivity;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -11,14 +12,23 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLConnection;
+
 import io.oauth.OAuth;
 import io.oauth.OAuthCallback;
 import io.oauth.OAuthData;
+import io.oauth.OAuthRequest;
 import xzheng2.cmu.edu.hw3.R;
 
 
 public class FitbitLogin extends AppCompatActivity {
     OAuth oauth;
+    HttpURLConnection conn;
+    TextView fit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,7 +36,7 @@ public class FitbitLogin extends AppCompatActivity {
         setContentView(R.layout.activity_fitbit_login);
         Button fitButton = (Button) findViewById(R.id.Fibitbutton);
         fitButton.setOnClickListener(fitButtonClicked);
-        oauth = new OAuth(this);
+
 
     }
     View.OnClickListener fitButtonClicked = new View.OnClickListener(){
@@ -36,101 +46,117 @@ public class FitbitLogin extends AppCompatActivity {
 
 
 
+            oauth = new OAuth(FitbitLogin.this);
             oauth.initialize("4mrdLpBc5SBgHQAtLeh5zbRS0aM");
 
             oauth.popup("fitbit", new OAuthCallback() {
                 @Override
                 public void onFinished(OAuthData data) {
-                    if (data.status.equals("error"))
+                    if (!data.status.equals("success"))
                         Log.d("fit",data.error);
                     else {
-                        TextView fit = (TextView)findViewById(R.id.fitTest);
-//                        fit.setText("123");
+                         fit = (TextView)findViewById(R.id.fitTest);
+//                        Log.d("fitbit test 1", "in on finished, data: "+ data.toString());
+                        Log.d("fitbit token", data.token);
+                        Log.d("fitbit token", data.provider);
+                        Log.d("fitbit token", data.request.toString());
+                        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
+                        // test
+                        data.http(data.provider.equals("fitbit") ? "/1/user/-/profile.json" : "/1.1/account/verify_credentials.json", new OAuthRequest() {
+                            private URL url;
+                            private URLConnection con;
 
-                        // test Json parser part
-                        String strJson="{\n" +
-                                "    \"activities\":[\n" +
-                                "        {\n" +
-                                "            \"activityId\":51007,\n" +
-                                "            \"activityParentId\":90019,\n" +
-                                "            \"calories\":230,\n" +
-                                "            \"description\":\"7mph\",\n" +
-                                "            \"distance\":2.04,\n" +
-                                "            \"duration\":1097053,\n" +
-                                "            \"hasStartTime\":true,\n" +
-                                "            \"isFavorite\":true,\n" +
-                                "            \"logId\":1154701,\n" +
-                                "            \"name\":\"Treadmill, 0% Incline\",\n" +
-                                "            \"startTime\":\"00:25\",\n" +
-                                "            \"steps\":3783\n" +
-                                "        }\n" +
-                                "    ],\n" +
-                                "    \"goals\":{\n" +
-                                "        \"caloriesOut\":2826,\n" +
-                                "        \"distance\":8.05,\n" +
-                                "        \"floors\":150,\n" +
-                                "        \"steps\":10000\n" +
-                                "     },\n" +
-                                "    \"summary\":{\n" +
-                                "        \"activityCalories\":230,\n" +
-                                "        \"caloriesBMR\":1913,\n" +
-                                "        \"caloriesOut\":2143,\n" +
-                                "        \"distances\":[\n" +
-                                "            {\"activity\":\"tracker\", \"distance\":1.32},\n" +
-                                "            {\"activity\":\"loggedActivities\", \"distance\":0},\n" +
-                                "            {\"activity\":\"total\",\"distance\":1.32},\n" +
-                                "            {\"activity\":\"veryActive\", \"distance\":0.51},\n" +
-                                "            {\"activity\":\"moderatelyActive\", \"distance\":0.51},\n" +
-                                "            {\"activity\":\"lightlyActive\", \"distance\":0.51},\n" +
-                                "            {\"activity\":\"sedentaryActive\", \"distance\":0.51},\n" +
-                                "            {\"activity\":\"Treadmill, 0% Incline\", \"distance\":3.28}\n" +
-                                "        ],\n" +
-                                "        \"elevation\":48.77,\n" +
-                                "        \"fairlyActiveMinutes\":0,\n" +
-                                "        \"floors\":16,\n" +
-                                "        \"lightlyActiveMinutes\":0,\n" +
-                                "        \"marginalCalories\":200,\n" +
-                                "        \"sedentaryMinutes\":1166,\n" +
-                                "        \"steps\":0,\n" +
-                                "        \"veryActiveMinutes\":0\n" +
-                                "    }\n" +
-                                "}";
-                        // parse Json
-                        String res ="";
-                        try {
-                            JSONObject  jsonRootObject = new JSONObject(strJson);
+                            @Override
+                            public void onSetURL(String _url) {
+                                Log.d("test url", "onsetURL url:" + _url);
 
-                            //Get the instance of JSONArray that contains JSONObjects
-                            JSONArray jsonArray = jsonRootObject.optJSONArray("activities");
+                                try {
+                                    url = new URL(_url);
 
-                            //Iterate the jsonArray and print the info of JSONObjects
-                            for(int i=0; i < jsonArray.length(); i++){
-                                JSONObject jsonObject = jsonArray.getJSONObject(i);
-
-                              int steps = Integer.parseInt(jsonObject.optString("steps").toString());
-                              int calories = Integer.parseInt(jsonObject.optString("calories").toString());
-//                                String calories = jsonObject.optString("calories").toString();
+                                    con =  url.openConnection();
+                                    con.setDoInput(true);
 
 
-                              float distance = Float.parseFloat(jsonObject.optString("distance").toString());
 
-                              res = "steps= "+ steps +" \n calories= "+ calories +" \n distance= "+ distance +" \n ";
+                                } catch (Exception e) { e.printStackTrace(); }
                             }
-                            fit.setText(res);
-                        } catch (JSONException e) {e.printStackTrace();}
+
+                            @Override
+                            public void onSetHeader(String header, String value) {
+                                Log.d("test header", header);
+                                Log.d("test value", value);
+                                con.addRequestProperty(header, value);
+
+                            }
+
+                            @Override
+                            public void onReady() {
+                                StringBuilder total = new StringBuilder();
+                                String line = "";
+                                Log.d("test ready()", "onReady() back from call");
+
+                                try {
+
+
+                                    BufferedReader r = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                                    while ((line = r.readLine()) != null) {
+                                        total.append(line);
+                                    }
+                                    Log.d("onReady() total", "onReady() total: " + total);
+                                } catch (Exception e) { e.printStackTrace(); }
+
+                                try {
+                                    JSONObject result = new JSONObject(total.toString());
+                                    JSONObject user = result.getJSONObject("user");
+                                    fit.setText(user.getString("displayName"));
+
+                                } catch (JSONException e){
+                                    Log.e("json error", "json error: " + e.getLocalizedMessage());
+                                }
+                            }
+
+                            @Override
+                            public void onError(String message) {
+                                fit.setText("error: " + message);
+                            }
+                        });
 
                     }
+
                 }
             });
 
-
-
-
-
-
-
         }
     };
+
+    public String parser(JSONObject data){
+//        // parse Json
+        String res ="";
+        try {
+            JSONObject  jsonRootObject = data;
+
+            //Get the instance of JSONArray that contains JSONObjects
+            JSONArray jsonArray = jsonRootObject.optJSONArray("activities");
+
+            //Iterate the jsonArray and print the info of JSONObjects
+            for(int i=0; i < jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+
+                int steps = Integer.parseInt(jsonObject.optString("steps").toString());
+                int calories = Integer.parseInt(jsonObject.optString("calories").toString());
+//                                String calories = jsonObject.optString("calories").toString();
+
+
+                float distance = Float.parseFloat(jsonObject.optString("distance").toString());
+
+                res = "steps= "+ steps +" \n calories= "+ calories +" \n distance= "+ distance +" \n ";
+            }
+            return res;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return "error";
+    }
 
 
 }

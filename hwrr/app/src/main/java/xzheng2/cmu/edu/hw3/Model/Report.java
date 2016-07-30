@@ -1,14 +1,11 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-/**
- * Created by chengcheng on 7/28/16.
- */
 import java.util.Date;
 
 public class Report {
     private long mId;
     private Date mStartDate;
-
+    
     public Report() {
         mId = -1;
         mStartDate = new Date();
@@ -29,7 +26,7 @@ public class Report {
     public void setStartDate(Date startDate) {
         mStartDate = startDate;
     }
-
+    
     public int getDurationSeconds(long endMillis) {
         return (int)((endMillis - mStartDate.getTime()) / 1000);
     }

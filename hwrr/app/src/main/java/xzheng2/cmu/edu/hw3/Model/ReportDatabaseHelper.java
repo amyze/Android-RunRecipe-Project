@@ -1,8 +1,5 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-/**
- * Created by chengcheng on 7/28/16.
- */
 import java.util.Date;
 
 import android.content.ContentValues;
@@ -16,7 +13,7 @@ import android.location.Location;
 public class ReportDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "reports.sqlite";
     private static final int VERSION = 1;
-
+    
     private static final String TABLE_REPORT = "report";
     private static final String COLUMN_REPORT_ID = "_id";
     private static final String COLUMN_REPORT_START_DATE = "start_date";
@@ -32,7 +29,7 @@ public class ReportDatabaseHelper extends SQLiteOpenHelper {
     public ReportDatabaseHelper(Context context) {
         super(context, DB_NAME, null, VERSION);
     }
-
+    
     @Override
     public void onCreate(SQLiteDatabase db) {
         // create the "report" table
@@ -47,13 +44,13 @@ public class ReportDatabaseHelper extends SQLiteOpenHelper {
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         // implement schema changes and data massage here when upgrading
     }
-
+    
     public long insertReport(Report report) {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_REPORT_START_DATE, report.getStartDate().getTime());
         return getWritableDatabase().insert(TABLE_REPORT, null, cv);
     }
-
+    
     public long insertLocation(long reportId, Location location) {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_LOCATION_LATITUDE, location.getLatitude());
@@ -71,10 +68,10 @@ public class ReportDatabaseHelper extends SQLiteOpenHelper {
                 null, null, null, null, null, COLUMN_REPORT_START_DATE + " asc");
         return new ReportCursor(wrapped);
     }
-
+    
     public ReportCursor queryReport(long id) {
         Cursor wrapped = getReadableDatabase().query(TABLE_REPORT,
-                null, // all columns
+                null, // all columns 
                 COLUMN_REPORT_ID + " = ?", // look for a report ID
                 new String[]{ String.valueOf(id) }, // with this value
                 null, // group by
@@ -85,8 +82,8 @@ public class ReportDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public LocationCursor queryLastLocationForReport(long reportId) {
-        Cursor wrapped = getReadableDatabase().query(TABLE_LOCATION,
-                null, // all columns
+        Cursor wrapped = getReadableDatabase().query(TABLE_LOCATION, 
+                null, // all columns 
                 COLUMN_LOCATION_REPORT_ID + " = ?", // limit to the given report
                 new String[]{ String.valueOf(reportId) },
                 null, // group by
@@ -107,13 +104,16 @@ public class ReportDatabaseHelper extends SQLiteOpenHelper {
         return new LocationCursor(wrapped);
     }
 
-
+    /**
+     * A convenience class to wrap a cursor that returns rows from the "report" table.
+     * The {@link getReport()} method will give you a Report instance representing the current row.
+     */
     public static class ReportCursor extends CursorWrapper {
-
+        
         public ReportCursor(Cursor c) {
             super(c);
         }
-
+        
         /**
          * Returns a Report object configured for the current row, or null if the current row is invalid.
          */
@@ -126,13 +126,13 @@ public class ReportDatabaseHelper extends SQLiteOpenHelper {
             return report;
         }
     }
-
+    
     public static class LocationCursor extends CursorWrapper {
-
+        
         public LocationCursor(Cursor c) {
             super(c);
         }
-
+        
         public Location getLocation() {
             if (isBeforeFirst() || isAfterLast())
                 return null;

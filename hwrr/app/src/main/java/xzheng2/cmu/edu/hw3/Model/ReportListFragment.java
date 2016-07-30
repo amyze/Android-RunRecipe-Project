@@ -1,10 +1,5 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-import android.support.v4.app.Fragment;
-
-/**
- * Created by chengcheng on 7/28/16.
- */
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
@@ -22,12 +17,13 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper.LocationCursor;
 import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper.ReportCursor;
 import xzheng2.cmu.edu.hw3.R;
 
 public class ReportListFragment extends ListFragment implements LoaderCallbacks<Cursor> {
     private static final int REQUEST_NEW_REPORT = 0;
-
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,44 +31,44 @@ public class ReportListFragment extends ListFragment implements LoaderCallbacks<
         // initialize the loader to load the list of reports
         getLoaderManager().initLoader(0, null, this);
     }
-
+    
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         // we only ever load the reports, so assume this is the case
         return new ReportListCursorLoader(getActivity());
     }
-
+    
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         // create an adapter to point at this cursor
         ReportCursorAdapter adapter = new ReportCursorAdapter(getActivity(), (ReportCursor)cursor);
         setListAdapter(adapter);
     }
-
+    
     @Override
     public void onLoaderReset(Loader<Cursor> loader) {
         // stop using the cursor (via the adapter)
         setListAdapter(null);
     }
-
+    
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.report_list_options, menu);
     }
-
+    
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_new_report: //add a new report
-                Intent i = new Intent(getActivity(), ReportActivity.class);
-                startActivityForResult(i, REQUEST_NEW_REPORT);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        case R.id.menu_item_new_report: //add a new report
+            Intent i = new Intent(getActivity(), ReportActivity.class);
+            startActivityForResult(i, REQUEST_NEW_REPORT);
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
         }
     }
-
+    
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (REQUEST_NEW_REPORT == requestCode) {
@@ -100,13 +96,13 @@ public class ReportListFragment extends ListFragment implements LoaderCallbacks<
             // query the list of reports
             return ReportManager.get(getContext()).queryReports();
         }
-
+        
     }
-
+    
     private static class ReportCursorAdapter extends CursorAdapter {
-
+        
         private ReportCursor mReportCursor;
-
+        
         public ReportCursorAdapter(Context context, ReportCursor cursor) {
             super(context, cursor, 0);
             mReportCursor = cursor;
@@ -115,7 +111,7 @@ public class ReportListFragment extends ListFragment implements LoaderCallbacks<
         @Override
         public View newView(Context context, Cursor cursor, ViewGroup parent) {
             // use a layout inflater to get a row view
-            LayoutInflater inflater =
+            LayoutInflater inflater = 
                     (LayoutInflater)context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             return inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
         }
@@ -124,12 +120,11 @@ public class ReportListFragment extends ListFragment implements LoaderCallbacks<
         public void bindView(View view, Context context, Cursor cursor) {
             // get the report for the current row
             Report report = mReportCursor.getReport();
-
+            
             // set up the start date text view
             TextView startDateTextView = (TextView)view;
             startDateTextView.setText("Report at " + report.getStartDate());
         }
-
+        
     }
 }
-

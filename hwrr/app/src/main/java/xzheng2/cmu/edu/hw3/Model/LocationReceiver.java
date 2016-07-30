@@ -1,8 +1,5 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-/**
- * Created by chengcheng on 7/28/16.
- */
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -27,11 +24,11 @@ public class LocationReceiver extends BroadcastReceiver {
             onProviderEnabledChanged(enabled);
         }
     }
-
+    
     protected void onLocationReceived(Context context, Location loc) {
         Log.d(TAG, this + " Got location from " + loc.getProvider() + ": " + loc.getLatitude() + ", " + loc.getLongitude());
     }
-
+    
     protected void onProviderEnabledChanged(boolean enabled) {
         Log.d(TAG, "Provider " + (enabled ? "enabled" : "disabled"));
     }

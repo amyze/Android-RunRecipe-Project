@@ -1,8 +1,5 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-/**
- * Created by chengcheng on 7/28/16.
- */
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +9,7 @@ import android.location.LocationManager;
 import android.util.Log;
 
 import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper.LocationCursor;
-import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper.LocationCursor;
+import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper.ReportCursor;
 
 
 public class ReportManager {
@@ -22,16 +19,16 @@ public class ReportManager {
     private static final String PREF_CURRENT_REPORT_ID = "ReportManager.currentReportId";
 
     public static final String ACTION_LOCATION = "com.donnemartin.android.fieldreporter.ACTION_LOCATION";
-
+    
     private static final String TEST_PROVIDER = "TEST_PROVIDER";
-
+    
     private static ReportManager sReportManager;
     private Context mAppContext;
     private LocationManager mLocationManager;
     private ReportDatabaseHelper mHelper;
     private SharedPreferences mPrefs; //
     private long mCurrentReportId;
-
+    
     private ReportManager(Context appContext) {
         mAppContext = appContext;
         mLocationManager = (LocationManager)mAppContext.getSystemService(Context.LOCATION_SERVICE);
@@ -39,7 +36,7 @@ public class ReportManager {
         mPrefs = mAppContext.getSharedPreferences(PREFS_FILE, Context.MODE_PRIVATE);
         mCurrentReportId = mPrefs.getLong(PREF_CURRENT_REPORT_ID, -1);
     }
-
+    
     public static ReportManager get(Context c) {
         if (sReportManager == null) {
             // we use the application context to avoid leaking activities
@@ -57,7 +54,7 @@ public class ReportManager {
     public void startLocationUpdates() {
         String provider = LocationManager.GPS_PROVIDER;
         // if we have the test provider and it's enabled, use it
-        if (mLocationManager.getProvider(TEST_PROVIDER) != null &&
+        if (mLocationManager.getProvider(TEST_PROVIDER) != null && 
                 mLocationManager.isProviderEnabled(TEST_PROVIDER)) {
             provider = TEST_PROVIDER;
         }
@@ -74,7 +71,7 @@ public class ReportManager {
         PendingIntent pi = getLocationPendingIntent(true);
         mLocationManager.requestLocationUpdates(provider, 0, 0, pi);
     }
-
+    
     public void stopLocationUpdates() {
         PendingIntent pi = getLocationPendingIntent(false);
         if (pi != null) {
@@ -82,21 +79,21 @@ public class ReportManager {
             pi.cancel();
         }
     }
-
+    
     public boolean isTrackingReport() {
         return getLocationPendingIntent(false) != null;
     }
-
+    
     public boolean isTrackingReport(Report report) {
         return report != null && report.getId() == mCurrentReportId;
     }
-
+    
     private void broadcastLocation(Location location) {
         Intent broadcast = new Intent(ACTION_LOCATION);
         broadcast.putExtra(LocationManager.KEY_LOCATION_CHANGED, location);
         mAppContext.sendBroadcast(broadcast);
     }
-
+    
     public Report startNewReport() {
         // insert a report into the db
         Report report = insertReport();
@@ -104,7 +101,7 @@ public class ReportManager {
         startTrackingReport(report);
         return report;
     }
-
+    
     public void startTrackingReport(Report report) {
         // keep the ID
         mCurrentReportId = report.getId();
@@ -113,26 +110,26 @@ public class ReportManager {
         // start location updates
         startLocationUpdates();
     }
-
+    
     public void stopReport() {
         stopLocationUpdates();
         mCurrentReportId = -1;
         mPrefs.edit().remove(PREF_CURRENT_REPORT_ID).commit();
     }
-
+    
     private Report insertReport() {
         Report report = new Report();
         report.setId(mHelper.insertReport(report));
         return report;
     }
 
-    public ReportDatabaseHelper.ReportCursor queryReports() {
+    public ReportCursor queryReports() {
         return mHelper.queryReports();
     }
-
+    
     public Report getReport(long id) {
         Report report = null;
-        ReportDatabaseHelper.ReportCursor cursor = mHelper.queryReport(id);
+        ReportCursor cursor = mHelper.queryReport(id);
         cursor.moveToFirst();
         // if we got a row, get a report
         if (!cursor.isAfterLast())
@@ -148,7 +145,7 @@ public class ReportManager {
             Log.e(TAG, "Location received with no tracking report; ignoring.");
         }
     }
-
+    
     public Location getLastLocationForReport(long reportId) {
         Location location = null;
         LocationCursor cursor = mHelper.queryLastLocationForReport(reportId);

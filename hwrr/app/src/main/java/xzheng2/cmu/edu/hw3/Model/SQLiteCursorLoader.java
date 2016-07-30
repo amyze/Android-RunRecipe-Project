@@ -1,8 +1,5 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-/**
- * Created by chengcheng on 7/28/16.
- */
 import android.content.Context;
 import android.database.Cursor;
 import android.support.v4.content.AsyncTaskLoader;
@@ -25,21 +22,21 @@ public abstract class SQLiteCursorLoader extends AsyncTaskLoader<Cursor> {
         }
         return cursor;
     }
-
+    
     @Override
     public void deliverResult(Cursor data) {
         Cursor oldCursor = mCursor;
         mCursor = data;
-
+        
         if (isStarted()) {
             super.deliverResult(data);
         }
-
+        
         if (oldCursor != null && oldCursor != data && !oldCursor.isClosed()) {
             oldCursor.close();
         }
     }
-
+    
     @Override
     protected void onStartLoading() {
         if (mCursor != null) {

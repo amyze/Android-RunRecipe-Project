@@ -1,8 +1,5 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-/**
- * Created by chengcheng on 7/28/16.
- */
 import java.util.Date;
 
 import android.database.Cursor;
@@ -18,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper.LocationCursor;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -29,13 +25,12 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.PolylineOptions;
 
+import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper.LocationCursor;
+import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper.ReportCursor;
 import xzheng2.cmu.edu.hw3.R;
-
-
 
 public class ReportMapFragment extends SupportMapFragment implements LoaderCallbacks<Cursor>, OnMapReadyCallback {
     private static final String ARG_REPORT_ID = "REPORT_ID";
-    private static final String TAG = "ReportMapFragment";
     private static final int LOAD_LOCATIONS = 0;
 
     private GoogleMap mGoogleMap;
@@ -70,9 +65,6 @@ public class ReportMapFragment extends SupportMapFragment implements LoaderCallb
 
         // stash a reference to the GoogleMap
         getMapAsync(this);
-        // show the user's location
-
-
         return v;
     }
 
@@ -88,8 +80,8 @@ public class ReportMapFragment extends SupportMapFragment implements LoaderCallb
         // iterate over the locations
         mLocationCursor.moveToFirst();
 
-        Log.d("***Lng", "" + mLocationCursor.getLocation().getLongitude());
-        Log.d("***Lat","" + mLocationCursor.getLocation().getLatitude());
+//        Log.d("***Lng", "" + mLocationCursor.getLocation().getLongitude());
+//        Log.d("***Lat", "" + mLocationCursor.getLocation().getLatitude());
 
 
         while (!mLocationCursor.isAfterLast()) {
@@ -101,16 +93,16 @@ public class ReportMapFragment extends SupportMapFragment implements LoaderCallb
                 String startDate = new Date(loc.getTime()).toString();
                 MarkerOptions startMarkerOptions = new MarkerOptions()
                         .position(latLng)
-                        .title(getResources().getString(R.string.run_start))
-                        .snippet(getResources().getString(R.string.run_started_at_format, startDate));
+                        .title(getResources().getString(R.string.report_start))
+                        .snippet(getResources().getString(R.string.report_started_at_format, startDate));
                 mGoogleMap.addMarker(startMarkerOptions);
             } else if (mLocationCursor.isLast()) {
                 // if this is the last location, and not also the first, add a marker
                 String endDate = new Date(loc.getTime()).toString();
                 MarkerOptions finishMarkerOptions = new MarkerOptions()
                         .position(latLng)
-                        .title(getResources().getString(R.string.run_finish))
-                        .snippet(getResources().getString(R.string.run_finished_at_format, endDate));
+                        .title(getResources().getString(R.string.report_finish))
+                        .snippet(getResources().getString(R.string.report_finished_at_format, endDate));
                 mGoogleMap.addMarker(finishMarkerOptions);
             }
 
@@ -131,16 +123,12 @@ public class ReportMapFragment extends SupportMapFragment implements LoaderCallb
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        Log.d(TAG, "**createLoader");
-        Log.d(TAG, "id" + args.getLong(ARG_REPORT_ID));
-
         return new LocationListCursorLoader(getActivity(), args.getLong(ARG_REPORT_ID, -1));
     }
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
-        Log.d(TAG, "**finishLoader");
-        mLocationCursor = (LocationCursor)cursor;
+        mLocationCursor = (LocationCursor) cursor;
         updateUI();
     }
 
@@ -151,11 +139,13 @@ public class ReportMapFragment extends SupportMapFragment implements LoaderCallb
         mLocationCursor = null;
     }
 
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        // stash a reference to the GoogleMap
         mGoogleMap = googleMap;
+        // show the user's location
         mGoogleMap.setMyLocationEnabled(true);
+
         mGoogleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 }

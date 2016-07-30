@@ -1,14 +1,11 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-/**
- * Created by chengcheng on 7/28/16.
- */
 import android.content.Context;
 import android.database.Cursor;
 
 public class LocationListCursorLoader extends SQLiteCursorLoader {
     private long mReportId;
-
+    
     public LocationListCursorLoader(Context c, long reportId) {
         super(c);
         mReportId = reportId;

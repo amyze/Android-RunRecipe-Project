@@ -33,6 +33,7 @@ import java.util.Locale;
 import io.fabric.sdk.android.Fabric;
 import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper;
 import xzheng2.cmu.edu.hw3.Model.ReportFragment;
+import xzheng2.cmu.edu.hw3.Model.ReportListFragment;
 import xzheng2.cmu.edu.hw3.View.CanlanderFragment;
 import xzheng2.cmu.edu.hw3.View.FabricFragment;
 import xzheng2.cmu.edu.hw3.View.IDriftFragment;
@@ -214,7 +215,7 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
 
             switch (position) {
                 case 0:
-                    return new CanlanderFragment();
+                    return new ReportListFragment();
                 case 1:
 //                    return new FabricFragment();
 //                    return new EventLogFragment();

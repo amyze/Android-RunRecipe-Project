@@ -5,9 +5,67 @@
     tools:context="xzheng2.cmu.edu.hw3.View.FitbitFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="259dp"
+        android:layout_gravity="center_horizontal|bottom">
+        <TableRow android:id="@+id/titleRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView android:id="@+id/logLabelTextView"
+                android:text="Event: "  android:paddingTop="10dp" android:textSize="15sp"></TextView>
+            <TextView android:id="@+id/logTextView" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="15sp" >
+            </TextView>
+        </TableRow>
+        <TableRow android:id="@+id/firstRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView android:id="@+id/distanceTextView"
+                android:text="Event: "  android:paddingTop="10dp" android:textSize="15sp"></TextView>
+            <TextView android:id="@+id/distance" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="15sp" >
+            </TextView>
+        </TableRow>
+        <TableRow android:id="@+id/secondRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView android:id="@+id/calTextView"
+                android:text="Event: "  android:paddingTop="10dp" android:textSize="15sp"></TextView>
+            <TextView android:id="@+id/cal" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="15sp" >
+            </TextView>
+        </TableRow>
+        <TableRow android:id="@+id/thirdRow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView android:id="@+id/stepsTextView"
+                android:text="Event: "  android:paddingTop="10dp" android:textSize="15sp"></TextView>
+            <TextView android:id="@+id/steps" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="15sp" >
+            </TextView>
+        </TableRow>
+    </TableLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="246dp"
+        android:weightSum="1">
+
+        <TextView
+            android:layout_width="187dp"
+            android:layout_height="wrap_content"
+            android:text="Summary"
+            android:id="@+id/textView3"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="0.11"
+            android:textSize="30dp"
+            android:textStyle="bold|italic" />
+
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:id="@+id/fitlog"
+            android:layout_marginLeft="30dp" />
+
+    </LinearLayout>
 
 </FrameLayout>

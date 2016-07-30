@@ -8,38 +8,46 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="259dp"
+        android:layout_height="223dp"
         android:layout_gravity="center_horizontal|bottom">
         <TableRow android:id="@+id/titleRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView android:id="@+id/logLabelTextView"
-                android:text="Event: "  android:paddingTop="10dp" android:textSize="15sp"></TextView>
-            <TextView android:id="@+id/logTextView" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="15sp" >
+            <TextView android:id="@+id/titleLabelTextView"
+                android:text="Date :"  android:paddingTop="10dp" android:textSize="20sp"
+                android:layout_marginLeft="30dp"
+                android:padding="10dp"></TextView>
+            <TextView android:id="@+id/dateF" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="20sp" >
             </TextView>
         </TableRow>
         <TableRow android:id="@+id/firstRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView android:id="@+id/distanceTextView"
-                android:text="Event: "  android:paddingTop="10dp" android:textSize="15sp"></TextView>
-            <TextView android:id="@+id/distance" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="15sp" >
+                android:text="Total distance: "  android:paddingTop="10dp" android:textSize="20sp"
+                android:layout_marginLeft="30dp"
+                android:padding="10dp"></TextView>
+            <TextView android:id="@+id/distance" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="20sp" >
             </TextView>
         </TableRow>
         <TableRow android:id="@+id/secondRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView android:id="@+id/calTextView"
-                android:text="Event: "  android:paddingTop="10dp" android:textSize="15sp"></TextView>
-            <TextView android:id="@+id/cal" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="15sp" >
+                android:text="Total Steps: "  android:paddingTop="10dp" android:textSize="20sp"
+                android:layout_marginLeft="30dp"
+                android:padding="10dp"></TextView>
+            <TextView android:id="@+id/cal" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="20sp" >
             </TextView>
         </TableRow>
         <TableRow android:id="@+id/thirdRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView android:id="@+id/stepsTextView"
-                android:text="Event: "  android:paddingTop="10dp" android:textSize="15sp"></TextView>
-            <TextView android:id="@+id/steps" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="15sp" >
+                android:text="Active calories burnt: "  android:paddingTop="10dp" android:textSize="20sp"
+                android:layout_marginLeft="30dp"
+                android:padding="10dp"></TextView>
+            <TextView android:id="@+id/steps" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="20sp" >
             </TextView>
         </TableRow>
     </TableLayout>
@@ -47,7 +55,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="246dp"
+        android:layout_height="224dp"
         android:weightSum="1">
 
         <TextView
@@ -58,13 +66,36 @@
             android:layout_gravity="center_horizontal"
             android:layout_weight="0.11"
             android:textSize="30dp"
-            android:textStyle="bold|italic" />
+            android:textStyle="bold|italic"
+            android:gravity="center" />
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="259dp"
+            android:layout_gravity="center_horizontal|bottom">
 
-        <ImageView
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:id="@+id/fitlog"
-            android:layout_marginLeft="30dp" />
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <ImageView android:id="@+id/fitlog"
+                    android:layout_width="126dp"
+                    android:layout_height="30dp" android:paddingTop="10dp" android:layout_marginLeft="30sp"
+                    android:layout_marginRight="30dp"
+                    android:layout_column="0" />
+
+                <Button android:id="@+id/fitloginButton"
+                    android:textColor="@color/blue" android:textSize="20sp"
+                    android:text="Log in Fitbit"
+                    android:textStyle="normal"
+                    android:background="@android:color/transparent"
+                    android:layout_column="1">
+                </Button>
+            </TableRow>
+
+
+        </TableLayout>>
+
+
 
     </LinearLayout>
 

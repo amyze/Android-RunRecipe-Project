@@ -86,23 +86,23 @@
             android:value="1db717cb7f12458810a442baad7ccded766bd906" />
 
         <activity android:name=".ViewActivity.ViewEventActivity" />
-        <activity android:name=".Model.ReportMapActivity" >
+        <activity android:name=".ReportMapActivity" >
         </activity>
-        <activity android:name=".Model.ReportActivity"></activity>
+        <activity android:name=".ReportActivity"></activity>
 
-        <receiver android:name=".Model.TrackingLocationReceiver"
+        <receiver android:name=".TrackingLocationReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="xzheng2.cmu.edu.hw3.ACTION_LOCATION"/>
             </intent-filter>
         </receiver>
 
-        <!--<receiver android:name=".Model.LocationReceiver"-->
-            <!--android:exported="false">-->
-            <!--<intent-filter>-->
-                <!--<action android:name="xzheng2.cmu.edu.hw3.ACTION_LOCATION"/>-->
-            <!--</intent-filter>-->
-        <!--</receiver>-->
+        <receiver android:name=".LocationReceiver"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="xzheng2.cmu.edu.hw3.ACTION_LOCATION"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

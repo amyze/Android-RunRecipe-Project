@@ -31,10 +31,10 @@ import java.lang.reflect.Field;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
-import xzheng2.cmu.edu.hw3.Model.ReportDatabaseHelper;
-import xzheng2.cmu.edu.hw3.Model.ReportFragment;
-import xzheng2.cmu.edu.hw3.Model.ReportListFragment;
-import xzheng2.cmu.edu.hw3.View.CanlanderFragment;
+import xzheng2.cmu.edu.hw3.ReportDatabaseHelper;
+import xzheng2.cmu.edu.hw3.ReportFragment;
+import xzheng2.cmu.edu.hw3.ReportListFragment;
+//import xzheng2.cmu.edu.hw3.View.CanlanderFragment;
 import xzheng2.cmu.edu.hw3.View.FabricFragment;
 import xzheng2.cmu.edu.hw3.View.IDriftFragment;
 import xzheng2.cmu.edu.hw3.View.PVGPEventFragment;

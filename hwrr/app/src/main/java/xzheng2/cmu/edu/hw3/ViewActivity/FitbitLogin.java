@@ -63,7 +63,7 @@ public class FitbitLogin extends AppCompatActivity {
                         // test1
                         HttpURLConnection con = null;
                         try {
-                            URL object = new URL("https://api.fitbit.com/1/user/-/profile.json");
+                            URL object = new URL("https://api.fitbit.com/1/user/-/activities/date/today.json");
                             con = (HttpURLConnection) object.openConnection();
                             con.setRequestMethod("GET");
                             con.setRequestProperty("Authorization","Bearer "+data.token);
@@ -80,16 +80,13 @@ public class FitbitLogin extends AppCompatActivity {
                                     Log.d("onReady() total", "onReady() total: " + total);
                                 } catch (Exception e) { e.printStackTrace(); }
 
-                                try {
-                                    JSONObject result = new JSONObject(total.toString());
-                                    JSONObject user = result.getJSONObject("user");
-                                    fit.setText(user.getString("displayName"));
 
-                                } catch (JSONException e){
-                                    Log.e("json error", "json error: " + e.getLocalizedMessage());
-                                }
+
+                                    fit.setText(parser(total.toString()));
+
+
                         }catch (Exception e) { e.printStackTrace(); }
-                        
+
                     }
 
                 }
@@ -98,28 +95,34 @@ public class FitbitLogin extends AppCompatActivity {
         }
     };
 
-    public String parser(JSONObject data){
+    public String parser(String input){
 //        // parse Json
-        String res ="";
+        String res = "";
         try {
-            JSONObject  jsonRootObject = data;
+            JSONObject  jsonRootObject = new JSONObject(input);
+            // get calories
+            JSONObject summary = jsonRootObject.getJSONObject("summary");
+            int calories = Integer.parseInt(summary.optString("caloriesOut").toString());
+            // get steps
+            int steps = Integer.parseInt(summary.getString("steps"));
+            // get distance
 
             //Get the instance of JSONArray that contains JSONObjects
-            JSONArray jsonArray = jsonRootObject.optJSONArray("activities");
+            JSONArray jsonArray = summary.optJSONArray("distances");
+
 
             //Iterate the jsonArray and print the info of JSONObjects
-            for(int i=0; i < jsonArray.length(); i++){
-                JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                int steps = Integer.parseInt(jsonObject.optString("steps").toString());
-                int calories = Integer.parseInt(jsonObject.optString("calories").toString());
-//                                String calories = jsonObject.optString("calories").toString();
+                JSONObject total = jsonArray.getJSONObject(0);
+
+                float distance = Float.parseFloat(total.optString("distance").toString());
 
 
-                float distance = Float.parseFloat(jsonObject.optString("distance").toString());
+
+
 
                 res = "steps= "+ steps +" \n calories= "+ calories +" \n distance= "+ distance +" \n ";
-            }
+
             return res;
         } catch (JSONException e) {
             e.printStackTrace();

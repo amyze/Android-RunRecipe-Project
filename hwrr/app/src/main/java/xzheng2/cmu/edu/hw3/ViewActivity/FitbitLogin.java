@@ -13,15 +13,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLConnection;
 
 import io.oauth.OAuth;
 import io.oauth.OAuthCallback;
 import io.oauth.OAuthData;
-import io.oauth.OAuthRequest;
 import xzheng2.cmu.edu.hw3.R;
 
 
@@ -61,44 +60,20 @@ public class FitbitLogin extends AppCompatActivity {
                         Log.d("fitbit token", data.provider);
                         Log.d("fitbit token", data.request.toString());
                         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
-                        // test
-                        data.http(data.provider.equals("fitbit") ? "/1/user/-/profile.json" : "/1.1/account/verify_credentials.json", new OAuthRequest() {
-                            private URL url;
-                            private URLConnection con;
-
-                            @Override
-                            public void onSetURL(String _url) {
-                                Log.d("test url", "onsetURL url:" + _url);
-
-                                try {
-                                    url = new URL(_url);
-
-                                    con =  url.openConnection();
-                                    con.setDoInput(true);
-
-
-
-                                } catch (Exception e) { e.printStackTrace(); }
-                            }
-
-                            @Override
-                            public void onSetHeader(String header, String value) {
-                                Log.d("test header", header);
-                                Log.d("test value", value);
-                                con.addRequestProperty(header, value);
-
-                            }
-
-                            @Override
-                            public void onReady() {
-                                StringBuilder total = new StringBuilder();
+                        // test1
+                        HttpURLConnection con = null;
+                        try {
+                            URL object = new URL("https://api.fitbit.com/1/user/-/profile.json");
+                            con = (HttpURLConnection) object.openConnection();
+                            con.setRequestMethod("GET");
+                            con.setRequestProperty("Authorization","Bearer "+data.token);
+                            StringBuilder total = new StringBuilder();
                                 String line = "";
-                                Log.d("test ready()", "onReady() back from call");
-
-                                try {
+                            try {
 
 
-                                    BufferedReader r = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                                    InputStream inputs= con.getInputStream();
+                                    BufferedReader r = new BufferedReader(new InputStreamReader(inputs));
                                     while ((line = r.readLine()) != null) {
                                         total.append(line);
                                     }
@@ -113,14 +88,8 @@ public class FitbitLogin extends AppCompatActivity {
                                 } catch (JSONException e){
                                     Log.e("json error", "json error: " + e.getLocalizedMessage());
                                 }
-                            }
-
-                            @Override
-                            public void onError(String message) {
-                                fit.setText("error: " + message);
-                            }
-                        });
-
+                        }catch (Exception e) { e.printStackTrace(); }
+                        
                     }
 
                 }

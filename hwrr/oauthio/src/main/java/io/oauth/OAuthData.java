@@ -1,11 +1,13 @@
 package io.oauth;
 
+import android.util.Log;
+
+import org.json.JSONObject;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Hashtable;
 import java.util.Iterator;
-
-import org.json.JSONObject;
 
 import io.oauth.http.OAuthJSONCallback;
 import io.oauth.http.OAuthJSONRequest;
@@ -95,7 +97,10 @@ public class OAuthData {
 					Iterator<?> keys = headers.keys();
 					while (keys.hasNext()) {
 						String key = (String)keys.next();
+						Log.d("test key",key);
+
 						String val = (String)headers.get(key);
+						Log.d("test value",val);
 						if (val.equals("{{token}}"))
 							val = token;
 						setters.onSetHeader(key, val);

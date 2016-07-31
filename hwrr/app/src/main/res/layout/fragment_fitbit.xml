@@ -8,7 +8,7 @@
 
     <TableLayout
         android:layout_width="match_parent"
-        android:layout_height="223dp"
+        android:layout_height="195dp"
         android:layout_gravity="center_horizontal|bottom">
         <TableRow android:id="@+id/titleRow"
             android:layout_width="match_parent"
@@ -57,7 +57,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="224dp"
+        android:layout_height="wrap_content"
         android:weightSum="1">
 
         <TextView
@@ -96,15 +96,14 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"></TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"></TableRow>
+                android:layout_height="50dp"
+                android:orientation="vertical">
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/chart"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_span="2" />
+            </TableRow>
 
 
         </TableLayout>>

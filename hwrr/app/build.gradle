@@ -64,4 +64,5 @@ dependencies {
     compile 'com.android.support:design:24.0.0'
     compile 'com.android.support:support-v4:24.0.0'
     compile project(':oauthio')
+    compile 'com.github.PhilJay:MPAndroidChart:v3.0.0-beta1'
 }

@@ -12,6 +12,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.components.Legend;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -22,6 +32,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import io.oauth.OAuth;
@@ -54,6 +65,7 @@ public class FitbitFragment extends Fragment {
     TextView calory;
     TextView dis;
     TextView steps;
+    BarChart chart;
 
 
     public FitbitFragment() {
@@ -104,32 +116,75 @@ public class FitbitFragment extends Fragment {
         resultView.setText(currentDate);
         Button fitButton = (Button) rootView.findViewById(R.id.fitloginButton);
         fitButton.setOnClickListener(fitButtonClicked);
+        // set the chart
 
+        chart=(BarChart)rootView.findViewById(R.id.chart);
+        chart.setDrawValueAboveBar(true);
+        // set x axis
+//        AxisValueFormatter xAxisFormatter = new DayAxisValueFormatter(chart);
+//        XAxis xAxis = chart.getXAxis();
+//        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setTextSize(10f);
+//        xAxis.setTextColor(Color.RED);
+//        xAxis.setDrawAxisLine(true);
+//        xAxis.setDrawGridLines(false);
+//        YAxis yAxis = chart.getAxisLeft();
+//        yAxis.setAxisMaxValue(10000f);
+//        yAxis.setAxisMinValue(0f);
+//        yAxis.setDrawAxisLine(false); // no axis line
+//        yAxis.setDrawGridLines(false); // no grid lines
+//        yAxis.setDrawZeroLine(true); // draw a zero line
+//        chart.getAxisRight().setEnabled(false); // no right axis
+        XAxis xAxis = chart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+//        xAxis.setTypeface(mTfLight);
+        xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f); // only intervals of 1 day
+        xAxis.setLabelCount(7);
+
+
+
+
+        YAxis leftAxis = chart.getAxisLeft();
+
+        leftAxis.setLabelCount(8, false);
+
+        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+        leftAxis.setSpaceTop(15f);
+        leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
+
+        YAxis rightAxis = chart.getAxisRight();
+        rightAxis.setDrawGridLines(false);
+
+        rightAxis.setLabelCount(8, false);
+
+        rightAxis.setSpaceTop(15f);
+        rightAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
+
+        Legend l = chart.getLegend();
+        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+        l.setForm(Legend.LegendForm.SQUARE);
+        l.setFormSize(9f);
+        l.setTextSize(11f);
+        l.setXEntrySpace(4f);
+        setData(12, 50);
         return rootView;
     }
     View.OnClickListener fitButtonClicked = new View.OnClickListener(){
         @Override
         public void onClick(View v)
         {
-
-
-
             oauth = new OAuth(getActivity());
             oauth.initialize("4mrdLpBc5SBgHQAtLeh5zbRS0aM");
-
             oauth.popup("fitbit", new OAuthCallback() {
                 @Override
                 public void onFinished(OAuthData data) {
                     if (!data.status.equals("success"))
                         Log.d("fit",data.error);
                     else {
-
 //                        Log.d("fitbit test 1", "in on finished, data: "+ data.toString());
                         Log.d("fitbit token", data.token);
-                        Log.d("fitbit token", data.provider);
-                        Log.d("fitbit token", data.request.toString());
                         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
-                        // test1
                         HttpURLConnection con = null;
                         try {
                             URL object = new URL("https://api.fitbit.com/1/user/-/activities/date/today.json");
@@ -139,8 +194,6 @@ public class FitbitFragment extends Fragment {
                             StringBuilder total = new StringBuilder();
                             String line = "";
                             try {
-
-
                                 InputStream inputs= con.getInputStream();
                                 BufferedReader r = new BufferedReader(new InputStreamReader(inputs));
                                 while ((line = r.readLine()) != null) {
@@ -148,12 +201,7 @@ public class FitbitFragment extends Fragment {
                                 }
                                 Log.d("onReady() total", "onReady() total: " + total);
                             } catch (Exception e) { e.printStackTrace(); }
-
-
-
                             parser(total.toString());
-
-
                         }catch (Exception e) { e.printStackTrace(); }
 
                     }
@@ -165,7 +213,6 @@ public class FitbitFragment extends Fragment {
     };
 
     public void parser(String input){
-//        // parse Json
         String res = "";
         try {
             JSONObject jsonRootObject = new JSONObject(input);
@@ -179,25 +226,12 @@ public class FitbitFragment extends Fragment {
             Log.d("test step",""+step);
             steps.setText(""+step);
             // get distance
-
-            //Get the instance of JSONArray that contains JSONObjects
             JSONArray jsonArray = summary.optJSONArray("distances");
-
-
-
-            //Iterate the jsonArray and print the info of JSONObjects
-
             JSONObject total = jsonArray.getJSONObject(0);
-
             float distance = Float.parseFloat(total.optString("distance").toString());
             Log.d("test dis", ""+distance);
             dis.setText(""+distance);
-
-
-
-
             res = "steps= "+ steps +" \n calories= "+ calories +" \n distance= "+ distance +" \n ";
-
             return;
         } catch (JSONException e) {
             e.printStackTrace();
@@ -212,7 +246,44 @@ public class FitbitFragment extends Fragment {
         }
     }
 
+    private void setData(int count, float range) {
 
+        float start = 0f;
+
+        chart.getXAxis().setAxisMinValue(start);
+        chart.getXAxis().setAxisMaxValue(start + count + 2);
+
+        ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
+
+        for (int i = (int) start; i < start + count + 1; i++) {
+            float mult = (range + 1);
+            float val = (float) (Math.random() * mult);
+            yVals1.add(new BarEntry(i + 1f, val));
+        }
+
+        BarDataSet set1;
+
+        if (chart.getData() != null &&
+                chart.getData().getDataSetCount() > 0) {
+            set1 = (BarDataSet) chart.getData().getDataSetByIndex(0);
+            set1.setValues(yVals1);
+            chart.getData().notifyDataChanged();
+            chart.notifyDataSetChanged();
+        } else {
+            set1 = new BarDataSet(yVals1, "The year 2017");
+            set1.setColors(ColorTemplate.MATERIAL_COLORS);
+
+            ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
+            dataSets.add(set1);
+
+            BarData data = new BarData(dataSets);
+            data.setValueTextSize(10f);
+//            data.setValueTypeface(mTfLight);
+            data.setBarWidth(0.9f);
+
+            chart.setData(data);
+        }
+    }
 
 
     @Override

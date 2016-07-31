@@ -37,7 +37,7 @@ import xzheng2.cmu.edu.hw3.View.FabricFragment;
 import xzheng2.cmu.edu.hw3.View.FitbitFragment;
 import xzheng2.cmu.edu.hw3.View.IDriftFragment;
 import xzheng2.cmu.edu.hw3.View.PVGPEventFragment;
-import xzheng2.cmu.edu.hw3.ViewActivity.FitbitLogin;
+import xzheng2.cmu.edu.hw3.ViewActivity.Login;
 
 
 public class HomeActivity extends ActionBarActivity implements ActionBar.TabListener, IDriftFragment.OnFragmentInteractionListener, PVGPEventFragment.OnFragmentInteractionListener {
@@ -156,7 +156,7 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
             case R.id.login:
 
                 Toast.makeText(this, "login test", Toast.LENGTH_SHORT).show();
-                Intent itemList = new Intent(HomeActivity.this, FitbitLogin.class);
+                Intent itemList = new Intent(HomeActivity.this, Login.class);
                 startActivity(itemList);
 
 

@@ -8,44 +8,46 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="xzheng2.cmu.edu.hw3.ViewActivity.FitbitLogin">
+    tools:context=".ViewActivity.Login">
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log in with Twitter"
+    <ImageButton
+        android:layout_width="210dp"
+        android:layout_height="31dp"
+        android:src="@drawable/twitter"
         android:id="@+id/Tbutton"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="186dp" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Log in with Fitbit"
-        android:id="@+id/Fibitbutton"
+    <ImageButton
+        android:layout_width="210dp"
+        android:layout_height="31dp"
+        android:src="@drawable/google"
+        android:id="@+id/goobutton"
+        android:layout_marginTop="62dp"
         android:layout_alignTop="@+id/Tbutton"
-        android:layout_alignStart="@+id/Tbutton"
-        android:layout_marginTop="71dp"
-        android:layout_alignEnd="@+id/Tbutton" />
+        android:layout_alignStart="@+id/Tbutton" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Running Recipe"
+        android:text="Run Recipe"
         android:id="@+id/textView2"
+        android:layout_marginBottom="62dp"
+        android:textStyle="bold|italic"
+        android:textSize="35dp"
         android:layout_above="@+id/Tbutton"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="81dp" />
+        android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/fitTest"
-        android:layout_alignParentTop="true"
+    <ImageView
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/ic_launcher"
         android:layout_alignStart="@+id/textView2"
-        android:layout_marginStart="45dp" />
+        android:layout_alignParentTop="true"
+        android:layout_above="@+id/textView2"
+        android:layout_alignEnd="@+id/textView2" />
 
 </RelativeLayout>

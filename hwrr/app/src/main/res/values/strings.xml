@@ -14,4 +14,5 @@
     <string name="report_started_at_format">Report started at %s</string>
     <string name="report_finish">Finish  run</string>
     <string name="report_finished_at_format">Run finish at %s</string>
+    <string name="facebook_app_id">1565469397095198</string>
 </resources>

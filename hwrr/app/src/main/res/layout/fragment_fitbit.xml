@@ -14,9 +14,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView android:id="@+id/titleLabelTextView"
-                android:text="Date :"  android:paddingTop="10dp" android:textSize="20sp"
+                android:text="Date  :"  android:paddingTop="10dp" android:textSize="20sp"
                 android:layout_marginLeft="30dp"
-                android:padding="10dp"></TextView>
+                android:padding="10dp"
+                android:layout_width="wrap_content"></TextView>
             <TextView android:id="@+id/dateF" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="20sp" >
             </TextView>
         </TableRow>
@@ -26,15 +27,16 @@
             <TextView android:id="@+id/distanceTextView"
                 android:text="Total distance: "  android:paddingTop="10dp" android:textSize="20sp"
                 android:layout_marginLeft="30dp"
-                android:padding="10dp"></TextView>
-            <TextView android:id="@+id/distance" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="20sp" >
+                android:padding="10dp"
+                android:layout_width="wrap_content"></TextView>
+            <TextView android:id="@+id/distance" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="20sp">
             </TextView>
         </TableRow>
         <TableRow android:id="@+id/secondRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView android:id="@+id/calTextView"
-                android:text="Total Steps: "  android:paddingTop="10dp" android:textSize="20sp"
+                android:text="Total steps: "  android:paddingTop="10dp" android:textSize="20sp"
                 android:layout_marginLeft="30dp"
                 android:padding="10dp"></TextView>
             <TextView android:id="@+id/cal" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="20sp" >
@@ -44,7 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <TextView android:id="@+id/stepsTextView"
-                android:text="Active calories burnt: "  android:paddingTop="10dp" android:textSize="20sp"
+                android:text="Calories burnt: "  android:paddingTop="10dp" android:textSize="20sp"
                 android:layout_marginLeft="30dp"
                 android:padding="10dp"></TextView>
             <TextView android:id="@+id/steps" android:paddingTop="10dp" android:textColor="@android:color/black" android:textSize="20sp" >
@@ -59,12 +61,11 @@
         android:weightSum="1">
 
         <TextView
-            android:layout_width="187dp"
-            android:layout_height="wrap_content"
-            android:text="Summary"
+            android:layout_width="263dp"
+            android:layout_height="45dp"
+            android:text="Today&apos;s Summary"
             android:id="@+id/textView3"
             android:layout_gravity="center_horizontal"
-            android:layout_weight="0.11"
             android:textSize="30dp"
             android:textStyle="bold|italic"
             android:gravity="center" />
@@ -75,7 +76,8 @@
 
             <TableRow
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_column="0">
 
                 <ImageView android:id="@+id/fitlog"
                     android:layout_width="126dp"
@@ -85,12 +87,24 @@
 
                 <Button android:id="@+id/fitloginButton"
                     android:textColor="@color/blue" android:textSize="20sp"
-                    android:text="Log in Fitbit"
+                    android:text="Log in "
                     android:textStyle="normal"
                     android:background="@android:color/transparent"
                     android:layout_column="1">
                 </Button>
             </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"></TableRow>
 
 
         </TableLayout>>

@@ -94,10 +94,10 @@ public class FitbitFragment extends Fragment {
         View rootView = inflater.inflate(R.layout.fragment_fitbit, container, false);
         ImageView fitlog = (ImageView)rootView.findViewById(R.id.fitlog);
         fitlog.setImageResource(R.drawable.fitbitlogo);
-        TextView userName = (TextView)rootView.findViewById(R.id.name);
-        TextView dis = (TextView)rootView.findViewById(R.id.distance);
-        TextView steps = (TextView)rootView.findViewById(R.id.steps);
-        TextView cal = (TextView)rootView.findViewById(R.id.cal);
+
+        dis = (TextView)rootView.findViewById(R.id.distance);
+        steps = (TextView)rootView.findViewById(R.id.steps);
+        calory = (TextView)rootView.findViewById(R.id.cal);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         String currentDate = sdf.format(new Date());
         TextView resultView = (TextView)rootView.findViewById(R.id.dateF);
@@ -151,7 +151,7 @@ public class FitbitFragment extends Fragment {
 
 
 
-//                            fit.setText(parser(total.toString()));
+                            parser(total.toString());
 
 
                         }catch (Exception e) { e.printStackTrace(); }
@@ -164,7 +164,7 @@ public class FitbitFragment extends Fragment {
         }
     };
 
-    public String parser(String input){
+    public void parser(String input){
 //        // parse Json
         String res = "";
         try {
@@ -172,9 +172,11 @@ public class FitbitFragment extends Fragment {
             // get calories
             JSONObject summary = jsonRootObject.getJSONObject("summary");
             int calories = Integer.parseInt(summary.optString("caloriesOut").toString());
+            Log.d("test cal",""+calories);
             calory.setText(""+calories);
             // get steps
             int step = Integer.parseInt(summary.getString("steps"));
+            Log.d("test step",""+step);
             steps.setText(""+step);
             // get distance
 
@@ -188,6 +190,7 @@ public class FitbitFragment extends Fragment {
             JSONObject total = jsonArray.getJSONObject(0);
 
             float distance = Float.parseFloat(total.optString("distance").toString());
+            Log.d("test dis", ""+distance);
             dis.setText(""+distance);
 
 
@@ -195,11 +198,11 @@ public class FitbitFragment extends Fragment {
 
             res = "steps= "+ steps +" \n calories= "+ calories +" \n distance= "+ distance +" \n ";
 
-            return res;
+            return;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        return "error";
+        return ;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

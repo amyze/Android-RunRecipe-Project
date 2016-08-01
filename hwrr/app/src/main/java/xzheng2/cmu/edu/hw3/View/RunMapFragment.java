@@ -73,13 +73,16 @@ public class RunMapFragment extends SupportMapFragment implements LoaderCallback
         PolylineOptions line = new PolylineOptions();
         // also create a LatLngBounds so we can zoom to fit
         LatLngBounds.Builder latLngBuilder = new LatLngBounds.Builder();
-        // iterate over the locations
-        locationCursor.moveToFirst();
 
-        if (locationCursor == null) {
-            Log.d("????", "locationCursor==null");
-            return;
-        }
+        // iterate over the locations
+//        Log.d("locationCursorCount", "" + locationCursor.getCount());
+//        if (locationCursor.getCount() > 0) {
+            locationCursor.moveToFirst();
+//        } else {
+//            return;
+//        }
+
+
 
         Log.d("***Lng", "" + locationCursor.getLocation().getLongitude());
         Log.d("***Lat", "" + locationCursor.getLocation().getLatitude());
@@ -124,7 +127,9 @@ public class RunMapFragment extends SupportMapFragment implements LoaderCallback
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new LocationListCursorLoader(getActivity(), args.getLong(ARG_RUN_ID, -1));
+        Loader<Cursor> newLoader = new LocationListCursorLoader(getActivity(), args.getLong(ARG_RUN_ID, -1));
+        Log.d("newLoader", newLoader.toString());
+        return newLoader;
     }
 
     @Override

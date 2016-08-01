@@ -50,10 +50,13 @@
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="1db717cb7f12458810a442baad7ccded766bd906" />
-        <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
 
         <activity android:name=".ViewActivity.ViewEventActivity" />
-        <activity android:name=".ViewActivity.Login"></activity>
+        <activity android:name=".ViewActivity.Login" />
+        <activity android:name=".ViewActivity.LogoutappActivity"></activity>
     </application>
 
 </manifest>

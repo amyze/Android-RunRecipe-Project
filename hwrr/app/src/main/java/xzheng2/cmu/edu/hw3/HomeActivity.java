@@ -22,7 +22,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
@@ -38,6 +37,7 @@ import xzheng2.cmu.edu.hw3.View.FitbitFragment;
 import xzheng2.cmu.edu.hw3.View.IDriftFragment;
 import xzheng2.cmu.edu.hw3.View.PVGPEventFragment;
 import xzheng2.cmu.edu.hw3.ViewActivity.Login;
+import xzheng2.cmu.edu.hw3.ViewActivity.LogoutappActivity;
 
 
 public class HomeActivity extends ActionBarActivity implements ActionBar.TabListener, IDriftFragment.OnFragmentInteractionListener, PVGPEventFragment.OnFragmentInteractionListener {
@@ -146,30 +146,15 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
-
-
-
         switch (id) {
-
-
-
             case R.id.login:
-
-                Toast.makeText(this, "login test", Toast.LENGTH_SHORT).show();
                 Intent itemList = new Intent(HomeActivity.this, Login.class);
                 startActivity(itemList);
-
-
                 return true;
             case R.id.logout:
-                Toast.makeText(this, "logout test", Toast.LENGTH_SHORT).show();
-//
-
+                Intent logout = new Intent(HomeActivity.this, LogoutappActivity.class);
+                startActivity(logout);
                 return true;
-
-//
-
-
             default:
                 return super.onOptionsItemSelected(item);
         }

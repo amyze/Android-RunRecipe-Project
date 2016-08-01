@@ -47,16 +47,23 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     compile files('libs/twitter4j-core-4.0.4.jar')
-    compile('com.google.api-client:google-api-client-android:1.22.0') {
-        exclude group: 'org.apache.httpcomponents'
-    }
-    compile('com.google.apis:google-api-services-calendar:v3-rev198-1.22.0') {
-        exclude group: 'org.apache.httpcomponents'
-    }
+
+//    compile('com.google.api-client:google-api-client-android:1.22.0') {
+//        exclude group: 'org.apache.httpcomponents'
+//    }
+
+//    compile('com.google.apis:google-api-services-calendar:v3-rev198-1.22.0') {
+//        exclude group: 'org.apache.httpcomponents'
+//    }
     compile('com.twitter.sdk.android:twitter:1.14.0@aar') {
         transitive = true;
     }
-    compile 'com.google.android.gms:play-services:9.2.0'
+
+    compile 'com.google.android.gms:play-services-maps:9.2.0'
+    compile 'com.google.android.gms:play-services-location:9.2.0'
+
+//    compile 'com.google.android.gms:play-services:9.2.0'
+
     compile 'pub.devrel:easypermissions:0.1.5'
     compile 'com.android.support:cardview-v7:24.0.0'
     compile 'com.android.support:support-v13:24.0.0'

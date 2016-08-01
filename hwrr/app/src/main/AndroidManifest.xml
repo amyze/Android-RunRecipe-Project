@@ -59,32 +59,26 @@
             </intent-filter>
         </receiver>
 
-        <activity
-            android:name=".ViewActivity.EventListActivity"
-            android:label="EventListActivity"
-            android:parentActivityName=".HomeActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="xzheng2.cmu.edu.hw3.HomeActivity" />
-        </activity>
+        <!--<meta-data-->
+            <!--android:name="com.google.android.geo.API_KEY"-->
+            <!--android:value="AIzaSyAfwtDB4t5uTAEx3Pyb-Nhf6cKqEtJosEk" />-->
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAfwtDB4t5uTAEx3Pyb-Nhf6cKqEtJosEk" />
+            android:value="AIzaSyAtt2GzliWmU5VieftDCP-KZKUYaIhqxbg" />
+
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
         <!-- <meta-data -->
         <!-- android:name="io.fabric.ApiKey" -->
         <!-- android:value="1db717cb7f12458810a442baad7ccded766bd906" /> -->
-        <activity android:name=".ViewActivity.ViewImgActivity" />
 
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="1db717cb7f12458810a442baad7ccded766bd906" />
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>
 
-        <activity android:name=".ViewActivity.ViewEventActivity" />
         <activity android:name=".ViewActivity.Login"></activity>
     </application>
 

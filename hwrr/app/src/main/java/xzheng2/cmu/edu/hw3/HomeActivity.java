@@ -31,18 +31,14 @@ import java.lang.reflect.Field;
 import java.util.Locale;
 
 import io.fabric.sdk.android.Fabric;
-import xzheng2.cmu.edu.hw3.View.CanlanderFragment;
-import xzheng2.cmu.edu.hw3.View.EventLogFragment;
 import xzheng2.cmu.edu.hw3.View.FabricFragment;
 import xzheng2.cmu.edu.hw3.View.FitbitFragment;
-import xzheng2.cmu.edu.hw3.View.IDriftFragment;
-import xzheng2.cmu.edu.hw3.View.PVGPEventFragment;
 import xzheng2.cmu.edu.hw3.View.RunFragment;
 import xzheng2.cmu.edu.hw3.View.RunListFragment;
 import xzheng2.cmu.edu.hw3.ViewActivity.Login;
 
 
-public class HomeActivity extends ActionBarActivity implements ActionBar.TabListener, IDriftFragment.OnFragmentInteractionListener, PVGPEventFragment.OnFragmentInteractionListener {
+public class HomeActivity extends ActionBarActivity implements ActionBar.TabListener {
 
     // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
     private static final String TWITTER_KEY = "OKoOmxo9Y4pGL4SDU1CTG3Eem";

@@ -10,9 +10,9 @@
     <string name="start">Start</string>
     <string name="stop">Stop</string>
     <string name="map">Map</string>
-    <string name="report_started_at_format">Run started at %s</string>
-    <string name="report_finish">Finish run</string>
-    <string name="report_finished_at_format">Run stop at %s</string>
+    <string name="run_started_at_format">Run started at %s</string>
+    <string name="run_finish">Finish run</string>
+    <string name="run_finished_at_format">Run stop at %s</string>
     <string name="facebook_app_id">1565469397095198</string>
     <string name="run_start">Start</string>
     <string name="duration_time">Duration</string>

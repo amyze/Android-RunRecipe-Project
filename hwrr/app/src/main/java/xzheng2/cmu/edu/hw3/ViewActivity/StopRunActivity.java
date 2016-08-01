@@ -23,8 +23,8 @@ import xzheng2.cmu.edu.hw3.View.RunMapFragment;
 
 public class StopRunActivity extends AppCompatActivity {
 
-    private static final String TWITTER_KEY = "ZuypGQAG4z2k6CnFVXd1OZvb8";
-    private static final String TWITTER_SECRET = "zFmyNkfqESQolsFW9ftshVtY5ewBkzoIvP8dMGYFMeu3yRZ2Jb";
+//    private static final String TWITTER_KEY = "ZuypGQAG4z2k6CnFVXd1OZvb8";
+//    private static final String TWITTER_SECRET = "zFmyNkfqESQolsFW9ftshVtY5ewBkzoIvP8dMGYFMeu3yRZ2Jb";
 
     public static final String EXTRA_RUN_ID = "REPORT_ID";
 
@@ -40,8 +40,8 @@ public class StopRunActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stop_run);
 
-        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-        Fabric.with(this, new Twitter(authConfig));
+//        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+//        Fabric.with(this, new Twitter(authConfig));
 
         Intent intent = getIntent();
         reportId = intent.getLongExtra(EXTRA_RUN_ID, -1);

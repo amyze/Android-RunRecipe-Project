@@ -171,14 +171,11 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
             default:
                 return super.onOptionsItemSelected(item);
         }
-        // return super.onOptionsItemSelected(item);
     }
 
 
     @Override
     public void onTabSelected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
-        // When the given tab is selected, switch to the corresponding page in
-        // the ViewPager.
         mViewPager.setCurrentItem(tab.getPosition());
     }
 
@@ -204,17 +201,10 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
 
         @Override
         public Fragment getItem(int position) {
-            // getItem is called to instantiate the fragment for the given page.
-            // Return a PlaceholderFragment (defined as a static inner class below).
-            //////do something
-
-            //return PlaceholderFragment.newInstance(position + 1);
-
             switch (position) {
                 case 0:
                     return new RunListFragment();
                 case 1:
-//                    return new FabricFragment();
                     return new RunFragment();
                 case 2:
                     return new FabricFragment();

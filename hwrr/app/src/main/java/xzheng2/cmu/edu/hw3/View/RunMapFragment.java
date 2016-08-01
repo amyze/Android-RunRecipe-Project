@@ -76,6 +76,11 @@ public class RunMapFragment extends SupportMapFragment implements LoaderCallback
         // iterate over the locations
         locationCursor.moveToFirst();
 
+        if (locationCursor == null) {
+            Log.d("????", "locationCursor==null");
+            return;
+        }
+
         Log.d("***Lng", "" + locationCursor.getLocation().getLongitude());
         Log.d("***Lat", "" + locationCursor.getLocation().getLatitude());
 
@@ -90,15 +95,15 @@ public class RunMapFragment extends SupportMapFragment implements LoaderCallback
                 MarkerOptions startMarkerOptions = new MarkerOptions()
                         .position(latLng)
                         .title(getResources().getString(R.string.run_start))
-                        .snippet(getResources().getString(R.string.report_started_at_format, startDate));
+                        .snippet(getResources().getString(R.string.run_started_at_format, startDate));
                 googleMap.addMarker(startMarkerOptions);
             } else if (locationCursor.isLast()) {
                 // if this is the last location, and not also the first, add a marker
                 String endDate = new Date(loc.getTime()).toString();
                 MarkerOptions finishMarkerOptions = new MarkerOptions()
                         .position(latLng)
-                        .title(getResources().getString(R.string.report_finish))
-                        .snippet(getResources().getString(R.string.report_finished_at_format, endDate));
+                        .title(getResources().getString(R.string.run_finish))
+                        .snippet(getResources().getString(R.string.run_finished_at_format, endDate));
                 googleMap.addMarker(finishMarkerOptions);
             }
 
@@ -124,6 +129,7 @@ public class RunMapFragment extends SupportMapFragment implements LoaderCallback
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        Log.d("onLoadFinished", cursor.toString());
         locationCursor = (LocationCursor) cursor;
         updateUI();
     }
@@ -137,11 +143,9 @@ public class RunMapFragment extends SupportMapFragment implements LoaderCallback
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
-        // stash a reference to the GoogleMap
         this.googleMap = googleMap;
-        // show the user's location
         this.googleMap.setMyLocationEnabled(true);
-
         this.googleMap.setMapType(GoogleMap.MAP_TYPE_NORMAL);
     }
 }
+

@@ -61,12 +61,18 @@ public class RunManager {
         }
 
         Location lastKnown = locationManager.getLastKnownLocation(provider);
+
+        Log.d("LocationUpdatesLat", "" + lastKnown.getLatitude());
+        Log.d("LocationUpdatesLong", "" + lastKnown.getLongitude());
+
+
         if (lastKnown != null) {
             lastKnown.setTime(System.currentTimeMillis());
             broadcastLocation(lastKnown);
         }
         PendingIntent pi = getLocationPendingIntent(true);
         locationManager.requestLocationUpdates(provider, 0, 0, pi);
+        locationManager.requestLocationUpdates(provider, 0, 1, pi);
     }
 
     public void stopLocationUpdates() {

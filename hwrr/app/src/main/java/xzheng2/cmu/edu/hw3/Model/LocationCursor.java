@@ -26,6 +26,7 @@ public class LocationCursor extends CursorWrapper {
     public Location getLocation() {
         if (isBeforeFirst() || isAfterLast())
             return null;
+
         // first get the provider out so we can use the constructor
         String provider = getString(getColumnIndex(COLUMN_LOCATION_PROVIDER));
         Location loc = new Location(provider);

@@ -47,6 +47,7 @@ public class FabricFragment extends ListFragment {
      */
     // TODO: Rename and change types and number of parameters
     public static FabricFragment newInstance(String param1, String param2) {
+
         FabricFragment fragment = new FabricFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);

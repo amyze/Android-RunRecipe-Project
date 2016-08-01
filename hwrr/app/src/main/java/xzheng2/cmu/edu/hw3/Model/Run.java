@@ -1,49 +1,62 @@
 package xzheng2.cmu.edu.hw3.Model;
 
-import android.text.format.DateFormat;
-
+/**
+ * Created by chengcheng on 7/31/16.
+ */
 import java.util.Date;
 
-/**
- * Created by chengcheng on 7/26/16.
- */
 public class Run {
-    private long mId;
-    private Date mStartDate;
-//    private Date mStart;
-//    private Date mRun;
+    private long id;
+    private Date startDate;
+    private Date stopDate;
+    private int duration;
+
+    public Run() {
+        id = -1;
+        startDate = new Date();
+    }
+    public Date getStopDate() {
+        return stopDate;
+    }
+
+    public void  setStopDate(Date stopDate) {
+        this.stopDate = stopDate;
+    }
 
     public long getId() {
-        return mId;
+        return id;
     }
 
     public void setId(long id) {
-        mId = id;
+        this.id = id;
     }
 
     public Date getStartDate() {
-        return mStartDate;
+        return startDate;
     }
 
     public void setStartDate(Date startDate) {
-        mStartDate = startDate;
+        this.startDate = startDate;
     }
 
     public int getDurationSeconds(long endMillis) {
-        return (int)((endMillis - mStartDate.getTime()) / 1000);
+        return (int)((endMillis - startDate.getTime()) / 1000);
     }
 
-    public Run() {
-        mId = -1;
-        mStartDate = new Date();
+    public int getDuration() {
+        return duration;
+    }
+
+    public void setDuration(long endMillis) {
+        duration = getDurationSeconds(endMillis);
     }
 
     public static String formatDuration(int durationSeconds) {
         int seconds = durationSeconds % 60;
         int minutes = ((durationSeconds - seconds) / 60) % 60;
-        int hours = (durationSeconds - minutes * 60 - seconds) / 3600;
+        int hours = (durationSeconds - (minutes * 60) - seconds) / 3600;
         return String.format("%02d:%02d:%02d", hours, minutes, seconds);
     }
 
-
 }
+

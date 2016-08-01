@@ -37,6 +37,8 @@ import xzheng2.cmu.edu.hw3.View.FabricFragment;
 import xzheng2.cmu.edu.hw3.View.FitbitFragment;
 import xzheng2.cmu.edu.hw3.View.IDriftFragment;
 import xzheng2.cmu.edu.hw3.View.PVGPEventFragment;
+import xzheng2.cmu.edu.hw3.View.RunFragment;
+import xzheng2.cmu.edu.hw3.View.RunListFragment;
 import xzheng2.cmu.edu.hw3.ViewActivity.Login;
 
 
@@ -214,10 +216,10 @@ public class HomeActivity extends ActionBarActivity implements ActionBar.TabList
 
             switch (position) {
                 case 0:
-                    return new CanlanderFragment();
+                    return new RunListFragment();
                 case 1:
 //                    return new FabricFragment();
-                    return new EventLogFragment();
+                    return new RunFragment();
                 case 2:
                     return new FabricFragment();
                 case 3:

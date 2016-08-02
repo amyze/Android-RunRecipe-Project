@@ -105,6 +105,8 @@ public class Login extends AppCompatActivity {
     View.OnClickListener logoutButtonClicked = new View.OnClickListener(){
         @Override
         public void onClick(View v) {
+            twitter.setOAuthAccessToken(null);
+//            twitter.shutdown();
         }
     };
     public void loginTwitter(){

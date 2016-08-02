@@ -66,6 +66,7 @@ public class FitbitFragment extends Fragment {
     TextView dis;
     TextView steps;
     BarChart chart;
+    ArrayList<Integer> weeklySteps = new ArrayList<>();
 
 
     public FitbitFragment() {
@@ -116,6 +117,9 @@ public class FitbitFragment extends Fragment {
         resultView.setText(currentDate);
         Button fitButton = (Button) rootView.findViewById(R.id.fitloginButton);
         fitButton.setOnClickListener(fitButtonClicked);
+        Button resButton = (Button) rootView.findViewById(R.id.refresh);
+        resButton.setOnClickListener(resButtonClicked);
+
         // set the chart
 
         chart=(BarChart)rootView.findViewById(R.id.chart);
@@ -135,39 +139,7 @@ public class FitbitFragment extends Fragment {
 //        yAxis.setDrawGridLines(false); // no grid lines
 //        yAxis.setDrawZeroLine(true); // draw a zero line
 //        chart.getAxisRight().setEnabled(false); // no right axis
-        XAxis xAxis = chart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-//        xAxis.setTypeface(mTfLight);
-        xAxis.setDrawGridLines(false);
-        xAxis.setGranularity(1f); // only intervals of 1 day
-        xAxis.setLabelCount(7);
 
-
-
-
-        YAxis leftAxis = chart.getAxisLeft();
-
-        leftAxis.setLabelCount(8, false);
-
-        leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
-        leftAxis.setSpaceTop(15f);
-        leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
-
-        YAxis rightAxis = chart.getAxisRight();
-        rightAxis.setDrawGridLines(false);
-
-        rightAxis.setLabelCount(8, false);
-
-        rightAxis.setSpaceTop(15f);
-        rightAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
-
-        Legend l = chart.getLegend();
-        l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
-        l.setForm(Legend.LegendForm.SQUARE);
-        l.setFormSize(9f);
-        l.setTextSize(11f);
-        l.setXEntrySpace(4f);
-        setData(12, 50);
         return rootView;
     }
     View.OnClickListener fitButtonClicked = new View.OnClickListener(){
@@ -186,6 +158,7 @@ public class FitbitFragment extends Fragment {
                         Log.d("fitbit token", data.token);
                         StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder().permitAll().build());
                         HttpURLConnection con = null;
+
                         try {
                             URL object = new URL("https://api.fitbit.com/1/user/-/activities/date/today.json");
                             con = (HttpURLConnection) object.openConnection();
@@ -201,10 +174,66 @@ public class FitbitFragment extends Fragment {
                                 }
                                 Log.d("onReady() total", "onReady() total: " + total);
                             } catch (Exception e) { e.printStackTrace(); }
-                            parser(total.toString());
+                            parserday(total.toString());
                         }catch (Exception e) { e.printStackTrace(); }
 
+                        if(weeklySteps.size()==0){
+                            try {
+                                URL object = new URL("https://api.fitbit.com/1/user/-/activities/steps/date/today/1w.json");
+                                con = (HttpURLConnection) object.openConnection();
+                                con.setRequestMethod("GET");
+                                con.setRequestProperty("Authorization","Bearer "+data.token);
+                                StringBuilder total = new StringBuilder();
+                                String line = "";
+                                try {
+                                    InputStream inputs= con.getInputStream();
+                                    BufferedReader r = new BufferedReader(new InputStreamReader(inputs));
+                                    while ((line = r.readLine()) != null) {
+                                        total.append(line);
+                                    }
+                                    Log.d("onReady() total", "onReady() total: " + total);
+                                } catch (Exception e) { e.printStackTrace(); }
+                                parserweek(total.toString());
+                            }catch (Exception e) { e.printStackTrace(); }
+                        }
                     }
+                    XAxis xAxis = chart.getXAxis();
+                    xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+
+                    xAxis.setDrawGridLines(false);
+                    xAxis.setGranularity(1f); // only intervals of 1 day
+                    xAxis.setLabelCount(7);
+
+
+
+
+                    YAxis leftAxis = chart.getAxisLeft();
+
+                    leftAxis.setLabelCount(8, false);
+
+                    leftAxis.setPosition(YAxis.YAxisLabelPosition.OUTSIDE_CHART);
+                    leftAxis.setSpaceTop(15f);
+                    leftAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
+
+                    YAxis rightAxis = chart.getAxisRight();
+                    rightAxis.setDrawGridLines(false);
+
+                    rightAxis.setLabelCount(8, false);
+
+                    rightAxis.setSpaceTop(15f);
+                    rightAxis.setAxisMinValue(0f); // this replaces setStartAtZero(true)
+
+                    Legend l = chart.getLegend();
+                    l.setPosition(Legend.LegendPosition.BELOW_CHART_LEFT);
+                    l.setForm(Legend.LegendForm.SQUARE);
+                    l.setFormSize(9f);
+                    l.setTextSize(11f);
+                    l.setXEntrySpace(4f);
+                    setData(7, 50);
+
+
+
+
 
                 }
             });
@@ -212,7 +241,7 @@ public class FitbitFragment extends Fragment {
         }
     };
 
-    public void parser(String input){
+    public void parserday(String input){
         String res = "";
         try {
             JSONObject jsonRootObject = new JSONObject(input);
@@ -239,6 +268,30 @@ public class FitbitFragment extends Fragment {
         return ;
     }
 
+    public void parserweek(String input){
+        try {
+            JSONObject jsonRootObject = new JSONObject(input);
+            JSONArray jsonArray = jsonRootObject.optJSONArray("activities-steps");
+            for(int i=0; i < jsonArray.length(); i++){
+                JSONObject jsonObject = jsonArray.getJSONObject(i);
+                int steps = Integer.parseInt(jsonObject.optString("value").toString());
+                weeklySteps.add(steps);
+                Log.d("steps "+i, ""+steps);
+            }
+
+        }catch (JSONException e){
+            e.printStackTrace();
+        }
+        return;
+    }
+    View.OnClickListener resButtonClicked = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+        }
+    };
+
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -251,14 +304,15 @@ public class FitbitFragment extends Fragment {
         float start = 0f;
 
         chart.getXAxis().setAxisMinValue(start);
-        chart.getXAxis().setAxisMaxValue(start + count + 2);
+        chart.getXAxis().setAxisMaxValue(start + count);
 
         ArrayList<BarEntry> yVals1 = new ArrayList<BarEntry>();
 
-        for (int i = (int) start; i < start + count + 1; i++) {
-            float mult = (range + 1);
-            float val = (float) (Math.random() * mult);
-            yVals1.add(new BarEntry(i + 1f, val));
+        for (int i = (int) start; i < start + count ; i++) {
+            float val = weeklySteps.get(i);
+
+            Log.d("test y",""+val);
+            yVals1.add(new BarEntry(i, val));
         }
 
         BarDataSet set1;
@@ -270,7 +324,7 @@ public class FitbitFragment extends Fragment {
             chart.getData().notifyDataChanged();
             chart.notifyDataSetChanged();
         } else {
-            set1 = new BarDataSet(yVals1, "The year 2017");
+            set1 = new BarDataSet(yVals1, "day");
             set1.setColors(ColorTemplate.MATERIAL_COLORS);
 
             ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
